@@ -20,18 +20,18 @@ public class PlanetAttractorScript : MonoBehaviour
 	}
 
 
-	private float _gravity = -20f;
+	private float _gravity = -50f;
 
-	public void Attract(Transform other)
+	public void Attract(Transform other, float rotOffset, float modifier)
 	{
 		Vector3 dir = other.position - transform.position;
 		Vector3 updir = other.up;
 
 		dir.Normalize();
 
-		other.GetComponent<Rigidbody>().AddForce(_gravity * dir);
+		other.GetComponent<Rigidbody>().AddForce(_gravity * dir * modifier);
 
-		other.rotation = Quaternion.FromToRotation(updir, dir) * other.rotation;
+		other.rotation = Quaternion.FromToRotation(updir, dir) * other.rotation * Quaternion.Euler(new Vector3(rotOffset, 0, 0));
 	}
 
 }

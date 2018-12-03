@@ -6,21 +6,23 @@ public class PlayerMovement : MonoBehaviour
 {
 
     private Rigidbody _rb;
-    private PlanetAttractorScript _attractor;
+    private float _moveforce = 40.0f;
+    private float _maxspeed = 15.0f;
+    private float _lookSensitivity = 3.0f;
+    
+    private GravityBody _gravBody = null;
+    private float _rotOffset = 0;
 
-    // Use this for initialization
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _attractor = PlanetAttractorScript.Instance;
+        _gravBody = GetComponent<GravityBody>();
 
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        _attractor.Attract(transform);
-
         HandleMovement();
     }
 
@@ -34,7 +36,19 @@ public class PlayerMovement : MonoBehaviour
         float yaxis = Input.GetAxis("Vertical");
         float xaxis = Input.GetAxis("Horizontal");
 
-        _rb.AddForce(yaxis * transform.forward * 20.0f);
-        _rb.AddForce(xaxis * transform.right * 20.0f);
+
+        Vector3 forward  = gameObject.transform.Find("Mesh").transform.forward;
+        Vector3 right = gameObject.transform.Find("Mesh").transform.right;
+      //  forward.x -= Mathf.Cos(10 * Mathf.Deg2Rad);
+
+        _rb.AddForce(yaxis * forward * _moveforce);
+        _rb.AddForce(xaxis * right * _moveforce);
+
+        //clamp velocity
+        if(_rb.velocity.magnitude > _maxspeed)
+        {
+            _rb.velocity = _rb.velocity.normalized * _maxspeed;
+        }
     }
+
 }
