@@ -2,27 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour {
+public class BulletScript : MonoBehaviour
+{
 
-	
-	[SerializeField] private float _speed = 50.0f;
 
-	void Start()
-	{
-		Invoke("Kill", 0.5f);
-	}
+    [SerializeField] private float _speed = 50.0f;
 
-	void Kill()
-	{
-		Destroy(gameObject);
-	}
+    void Start()
+    {
+        Invoke("Kill", 0.5f);
+    }
 
-	void Update () {
-		transform.position += transform.right * _speed * Time.deltaTime;	
-	}
+    void Kill()
+    {
+        Destroy(gameObject);
+    }
 
-	void OnTriggerEnter(Collider other)
-	{
-		if(other.tag == "Enemy") Destroy(gameObject);
-	}
+    void Update()
+    {
+        transform.position += transform.right * _speed * Time.deltaTime;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        HealthScript health = other.GetComponent<HealthScript>();
+
+        if (health == null) return;
+
+        //replace later with player damage
+        health.CurrentHealth -= 1.0f;
+
+        Destroy(gameObject);
+    }
 }

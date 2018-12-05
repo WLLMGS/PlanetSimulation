@@ -8,17 +8,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
     private float _moveforce = 40.0f;
     private float _maxspeed = 15.0f;
-    private float _lookSensitivity = 3.0f;
-    
-    private GravityBody _gravBody = null;
-    private float _rotOffset = 0;
+
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-        _gravBody = GetComponent<GravityBody>();
-
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; //lock cursor in window, unlocked by pressing escape
     }
 
     void FixedUpdate()

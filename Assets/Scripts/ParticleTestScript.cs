@@ -7,7 +7,6 @@ public class ParticleTestScript : MonoBehaviour
 
     [SerializeField] private GameObject _particleSystem;
     [SerializeField] private List<Transform> _spawnpositions = new List<Transform>();
-    private float _lightningRange = 60.0f;
 	private float _spawnIntervalMin = 2.0f;
 	private float _spawnIntervalMax = 5.0f;
 	

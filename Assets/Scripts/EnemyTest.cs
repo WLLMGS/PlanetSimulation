@@ -6,6 +6,18 @@ public class EnemyTest : MonoBehaviour {
 
 	[SerializeField] private Transform _target;
 
+    public Transform Target
+    {
+        get
+        {
+            return _target;
+        }
+        set
+        {
+            _target = value;
+        }
+    }
+
 	// Use this for initialization
 	void Start () {
 		
