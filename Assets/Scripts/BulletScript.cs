@@ -30,7 +30,7 @@ public class BulletScript : MonoBehaviour
         if (health == null) return;
 
         //replace later with player damage
-        health.CurrentHealth -= 1.0f;
+        health.Damage(1.0f);
 
         Destroy(gameObject);
     }

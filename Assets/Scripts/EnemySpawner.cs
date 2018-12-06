@@ -8,7 +8,7 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField] private Transform _player;
 
     private float _spawnrate = 10.0f;
-    private int _spawnAmount = 6;
+    private int _spawnAmount = 5;
 
     private int _spawnAmountCurrentWave = 0;
 
@@ -32,7 +32,6 @@ public class EnemySpawner : MonoBehaviour {
 
     private void SpawnWave()
     {
-         Debug.Log("Spawning");
         _spawnAmountCurrentWave = _spawnAmount;
         StartCoroutine( SpawnEnemy());
     }
@@ -41,7 +40,7 @@ public class EnemySpawner : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.2f);
         GameObject en = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-        en.GetComponent<EnemyTest>().Target = _player;
+        en.GetComponent<EnemyBehavior>().Target = _player;
 
         --_spawnAmountCurrentWave;
 

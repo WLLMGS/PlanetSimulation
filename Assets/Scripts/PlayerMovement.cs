@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody _rb;
     private float _moveforce = 40.0f;
-    private float _maxspeed = 15.0f;
+    private float _maxspeed = 10.0f;
 
 
     void Start()

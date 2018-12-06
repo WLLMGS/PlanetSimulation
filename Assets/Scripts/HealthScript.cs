@@ -7,9 +7,10 @@ public class HealthScript : MonoBehaviour {
 
     [SerializeField] private float _maxHealth;
     [SerializeField] private Slider _healthbar;
-
+    private List<Material> _mats = new List<Material>();
+   
     private float _currentHeath;
-
+    
 
     public float MaxHealth
     {
@@ -35,7 +36,6 @@ public class HealthScript : MonoBehaviour {
             Mathf.Clamp(_currentHeath, 0, _maxHealth); //clamp the health between 0 and max health
             CheckIfAlive(); //check if the entity is still alive
             UpdateUI();//update UI if healthbar is set
-
         }
     }
 
@@ -43,6 +43,15 @@ public class HealthScript : MonoBehaviour {
     {
         _currentHeath = _maxHealth;
         UpdateUI();
+
+        //get the attached material
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        
+        foreach(Renderer r in renderers)
+        {
+            _mats.Add(r.material);
+        }
+
     }
 
     void UpdateUI()
@@ -53,6 +62,55 @@ public class HealthScript : MonoBehaviour {
     void CheckIfAlive()
     {
         //replace later with custom events depending on factory, enemy, player
-        if (_currentHeath <= 0) Destroy(gameObject);
+        if (_currentHeath <= 0)
+        {
+            DoOnDeathEvent();
+            Destroy(gameObject);
+        } 
+    }
+
+    void DoOnDeathEvent()
+    {
+        switch(gameObject.tag)
+        {
+            case "Enemy":
+                //when enemy dies drop loot
+                var lootComp = gameObject.GetComponent<LootDropScript>();
+                if (lootComp == null) break;
+                lootComp.DropLoot();
+                break;
+            default:
+                break;
+        }
+    }
+
+
+    void DamageFlickerAnimation()
+    {
+
+        foreach (Material m in _mats)
+        {
+            m.color *= new Color(1, 0, 0, 1);
+        }
+
+        StartCoroutine(ChangeBackToNormalColor());
+    }
+    IEnumerator ChangeBackToNormalColor()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        foreach (Material m in _mats)
+        {
+            m.color = new Color(1, 1, 1, 1);
+        }
+    }
+
+    public void Damage(float amount)
+    {
+        _currentHeath -= amount;
+        Mathf.Clamp(_currentHeath, 0, _maxHealth);
+        CheckIfAlive();
+        UpdateUI();
+        DamageFlickerAnimation();
     }
 }

@@ -31,7 +31,9 @@ public class PlanetAttractorScript : MonoBehaviour
 
 		other.GetComponent<Rigidbody>().AddForce(_gravity * dir * modifier);
 
-		other.rotation = Quaternion.FromToRotation(updir, dir) * other.rotation * Quaternion.Euler(new Vector3(rotOffset, 0, 0));
-	}
+       other.rotation = Quaternion.FromToRotation(updir, dir) * other.rotation;
+
+        
+    }
 
 }
