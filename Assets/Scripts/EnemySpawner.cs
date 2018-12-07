@@ -32,21 +32,45 @@ public class EnemySpawner : MonoBehaviour {
 
     private void SpawnWave()
     {
+        //set the amount of enemies that need to be spawned this wave
         _spawnAmountCurrentWave = _spawnAmount;
-        StartCoroutine( SpawnEnemy());
+        //start coroutine that spawns enemies one by one
+        StartCoroutine( SpawnEnemyCoroutine());
     }
 
-   IEnumerator SpawnEnemy()
+
+    private void SpawnEnemy()
+    {
+        //calculate random pos around factory
+        Vector3 pos = transform.position;
+
+        float horz = Random.Range(-3.0f, 3.0f);
+        float vert = Random.Range(-3.0f, 3.0f);
+
+        pos += transform.forward * vert;
+        pos += transform.right * horz;
+        pos += transform.up * -0.5f;
+
+        //spawn enemy at that position and set target to player
+        GameObject en = Instantiate(_enemyPrefab, pos, Quaternion.identity);
+        en.GetComponent<EnemyBehavior>().Target = _player;
+    }
+
+   IEnumerator SpawnEnemyCoroutine()
     {
         yield return new WaitForSeconds(0.2f);
-        GameObject en = Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
-        en.GetComponent<EnemyBehavior>().Target = _player;
 
+        //spawn enemy on random location around factory
+        SpawnEnemy();
+
+        //decrement amount of enemies to spawn
         --_spawnAmountCurrentWave;
-
-        if (_spawnAmountCurrentWave > 0)StartCoroutine( SpawnEnemy());
+        //check if there are any more enemies that need to be spawned in this wave
+        if (_spawnAmountCurrentWave > 0)StartCoroutine( SpawnEnemyCoroutine());
 
     }
+
+
 
 
 }

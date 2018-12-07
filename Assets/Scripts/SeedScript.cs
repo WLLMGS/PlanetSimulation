@@ -20,7 +20,7 @@ public class SeedScript : MonoBehaviour {
 
     private void Update()
     {
-        transform.Rotate(new Vector3(0, 90 * Time.deltaTime, 0));
+        transform.Rotate(new Vector3(0, 360.0f * Time.deltaTime, 0));
     }
 
     private void OnTriggerEnter(Collider other)

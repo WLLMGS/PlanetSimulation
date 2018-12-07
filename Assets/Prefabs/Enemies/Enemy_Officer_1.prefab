@@ -133,6 +133,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1203690269402756
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4917548984508622}
+  m_Layer: 9
+  m_Name: GunPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1217557918759692
 GameObject:
   m_ObjectHideFlags: 1
@@ -809,7 +824,8 @@ Transform:
     w: 1}
   m_LocalPosition: {x: 0.00000009689331, y: 0, z: 0.00000065402986}
   m_LocalScale: {x: 0.9999999, y: 0.99999994, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4917548984508622}
   m_Father: {fileID: 4211992169545752}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1009,6 +1025,19 @@ Transform:
   m_Father: {fileID: 4274627128060820}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4917548984508622
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1203690269402756}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.118, y: 0.019, z: 0.46}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4424108858966338}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!4 &4944781605871966
 Transform:
   m_ObjectHideFlags: 1
@@ -1253,6 +1282,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _target: {fileID: 224961976439091154}
+  _bulletPrefab: {fileID: 1442860885194236, guid: a070262e4f25cbb4aad359903a38360e,
+    type: 2}
+  _gunpoint: {fileID: 4917548984508622}
 --- !u!114 &114662394160752138
 MonoBehaviour:
   m_ObjectHideFlags: 1
