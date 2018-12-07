@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
+using UnityEngine.UI;
 
 public class EnemyBehavior : MonoBehaviour {
 
@@ -9,15 +10,21 @@ public class EnemyBehavior : MonoBehaviour {
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _gunpoint;
 
+
+    private Animator _animator;
+
     private float _firerate = 0.5f;
     private bool _canshoot = true;
 
     private float _distanceToShoot = 10.0f;
     private float _distanceToStop = 5.0f;
 
-    SelectorNode _rootNode;
-    bool _closeEnoughToPlayer = false;
-    bool _isInRangeToShoot = false;
+    private SelectorNode _rootNode;
+    private bool _closeEnoughToPlayer = false;
+    private bool _isInRangeToShoot = false;
+    private bool _isDead = false;
+
+   
 
     public Transform Target
     {
@@ -31,11 +38,30 @@ public class EnemyBehavior : MonoBehaviour {
         }
     }
 
+    public bool IsDead
+    {
+        get
+        {
+            return _isDead;
+        }
+        set
+        {
+            _isDead = value;
+        }
+    }
+
     // Use this for initialization
     void Start()
     {
+        _animator = GetComponentInChildren<Animator>();
+
         //behavior tree
         _rootNode = new SelectorNode(
+            //when enemy dies
+            new SequenceNode(
+                new ConditionNode(IsDeadCond),
+                new ActionNode(DeathAction)
+                ),
             //shoot and stand still when player is close enough
             new SequenceNode(
                 new ConditionNode(IsInShootingRange),
@@ -88,6 +114,38 @@ public class EnemyBehavior : MonoBehaviour {
         }
             return NodeState.Success;
     }
+    
+    private NodeState DeathAction()
+    {
+       // if (_animator == null) return NodeState.Failure;
+
+        _animator.SetTrigger("Die");
+
+        //disable health bar
+        var slider = GetComponentInChildren<Slider>();
+        if (slider == null) return NodeState.Success;
+        slider.gameObject.SetActive(false);
+
+        //disable capsule collider
+        var cap = GetComponent<CapsuleCollider>();
+        //if (cap == null) return NodeState.Failure;
+        cap.enabled = false;
+
+        //disable gravity body
+        var grav = GetComponent<GravityBody>();
+        //if (grav == null) return NodeState.Failure;
+        grav.enabled = false;
+        //destroy enemy when animation is complete
+        StartCoroutine(Kill());
+
+
+        return NodeState.Success;
+    }
+
+    private bool IsDeadCond()
+    {
+        return _isDead;
+    }
 
     private bool IsCloseEnoughToStop()
     {
@@ -99,6 +157,12 @@ public class EnemyBehavior : MonoBehaviour {
     {
         yield return new WaitForSeconds(_firerate);
         _canshoot = true;
+    }
+
+    private IEnumerator Kill()
+    {
+        yield return new WaitForSeconds(1.5f);
+        Destroy(gameObject);
     }
 
     private bool IsInShootingRange()

@@ -65,7 +65,7 @@ public class HealthScript : MonoBehaviour {
         if (_currentHeath <= 0)
         {
             DoOnDeathEvent();
-            Destroy(gameObject);
+            //Destroy(gameObject);
         } 
     }
 
@@ -78,8 +78,12 @@ public class HealthScript : MonoBehaviour {
                 var lootComp = gameObject.GetComponent<LootDropScript>();
                 if (lootComp == null) break;
                 lootComp.DropLoot();
+                var enemyBeh = gameObject.GetComponent<EnemyBehavior>();
+                if (enemyBeh == null) return;
+                enemyBeh.IsDead = true;
                 break;
             default:
+                Destroy(gameObject);
                 break;
         }
     }
