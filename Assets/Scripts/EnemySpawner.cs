@@ -13,6 +13,7 @@ public class EnemySpawner : MonoBehaviour {
     private int _spawnAmountCurrentWave = 0;
 
     private float _timer = 0;
+    private bool _isPlayerInRange = false;
 
 	void Start () {
         _player = GameObject.Find("Player").transform;
@@ -24,8 +25,11 @@ public class EnemySpawner : MonoBehaviour {
 
         if(_timer <= 0.0f)
         {
-            _timer = _spawnrate;
-            SpawnWave();
+            if (_isPlayerInRange)
+            {
+                _timer = _spawnrate;
+                SpawnWave();
+            }
         }
 
     }
@@ -70,7 +74,15 @@ public class EnemySpawner : MonoBehaviour {
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player") _isPlayerInRange = true;
+    }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player") _isPlayerInRange = false;
+    }
 
 
 }

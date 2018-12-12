@@ -74,12 +74,16 @@ public class HealthScript : MonoBehaviour {
         switch(gameObject.tag)
         {
             case "Enemy":
-                //when enemy dies drop loot
-                var lootComp = gameObject.GetComponent<LootDropScript>();
-                if (lootComp == null) break;
-                lootComp.DropLoot();
                 var enemyBeh = gameObject.GetComponent<EnemyBehavior>();
                 if (enemyBeh == null) return;
+
+                if (!enemyBeh.IsDead)
+                {
+                    var lootComp = gameObject.GetComponent<LootDropScript>();
+                    if (lootComp == null) break;
+                    lootComp.DropLoot();
+                }
+
                 enemyBeh.IsDead = true;
                 break;
             default:
@@ -94,6 +98,7 @@ public class HealthScript : MonoBehaviour {
 
         foreach (Material m in _mats)
         {
+
             m.color *= new Color(1, 0, 0, 1);
         }
 

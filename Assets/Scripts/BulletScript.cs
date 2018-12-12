@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BulletScript : MonoBehaviour
 {
-
-
     [SerializeField] private float _speed = 50.0f;
 
     void Start()
@@ -25,13 +23,27 @@ public class BulletScript : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        HealthScript health = other.GetComponent<HealthScript>();
+        if(other.tag == "Enemy")
+        {
+            HealthScript health = other.GetComponent<HealthScript>();
+            EnemyBehavior beh = other.GetComponent<EnemyBehavior>();
 
-        if (health == null) return;
+            if (health == null || beh == null) return;
 
-        //replace later with player damage
-        health.Damage(1.0f);
+            //replace later with player damage
+            health.Damage(1.0f);
+            beh.IsHitByPlayer = true;
 
-        Destroy(gameObject);
+
+            Destroy(gameObject);
+        }
+        else if(other.tag == "Factory")
+        {
+            HealthScript health = other.GetComponent<HealthScript>();
+            if (health == null) return;
+
+            health.Damage(1.0f);
+        }
+
     }
 }

@@ -23,18 +23,12 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleMovement()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _rb.AddForce(transform.up * 1.0f, ForceMode.Impulse);
-        }
-
         float yaxis = Input.GetAxis("Vertical");
         float xaxis = Input.GetAxis("Horizontal");
 
-
         Vector3 forward  = gameObject.transform.Find("Mesh").transform.forward;
         Vector3 right = gameObject.transform.Find("Mesh").transform.right;
-      //  forward.x -= Mathf.Cos(10 * Mathf.Deg2Rad);
+        //  forward.x -= Mathf.Cos(10 * Mathf.Deg2Rad);
 
         _rb.AddForce(yaxis * forward * _moveforce);
         _rb.AddForce(xaxis * right * _moveforce);

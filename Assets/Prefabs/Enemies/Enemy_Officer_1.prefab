@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eea86bb2d8b53143aafaedb5f0a63a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 224961976439091154}
+  _player: {fileID: 0}
   _bulletPrefab: {fileID: 1442860885194236, guid: a070262e4f25cbb4aad359903a38360e,
     type: 2}
   _gunpoint: {fileID: 4917548984508622}
@@ -1372,7 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e87a9f7d4f4cbe48a087cb81fe893a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 5
+  _maxHealth: 7
   _healthbar: {fileID: 114049545695068112}
 --- !u!114 &114996775060136450
 MonoBehaviour:

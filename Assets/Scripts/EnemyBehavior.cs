@@ -6,35 +6,49 @@ using UnityEngine.UI;
 
 public class EnemyBehavior : MonoBehaviour {
 
-    [SerializeField] private Transform _target;
+    [SerializeField] private Transform _player;
     [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private Transform _gunpoint;
 
 
     private Animator _animator;
 
-    private float _firerate = 0.5f;
+    private float _firerate = 1.0f;
     private bool _canshoot = true;
 
     private float _distanceToShoot = 10.0f;
     private float _distanceToStop = 5.0f;
+    private float _PlayerHitCooldown = 1.0f;
 
     private SelectorNode _rootNode;
     private bool _closeEnoughToPlayer = false;
     private bool _isInRangeToShoot = false;
     private bool _isDead = false;
+    private bool _isHitByPlayer = false;
 
-   
+
+    private PlantManager _plantManager;
+    private Transform _target;
+
+
+    public bool IsHitByPlayer
+    {
+        set
+        {
+            StartCoroutine(PlayerHitCooldown());
+            _isHitByPlayer = true;
+        }
+    }
 
     public Transform Target
     {
         get
         {
-            return _target;
+            return _player;
         }
         set
         {
-            _target = value;
+            _player = value;
         }
     }
 
@@ -54,6 +68,7 @@ public class EnemyBehavior : MonoBehaviour {
     void Start()
     {
         _animator = GetComponentInChildren<Animator>();
+        _plantManager = PlantManager.Instance;
 
         //behavior tree
         _rootNode = new SelectorNode(
@@ -62,29 +77,30 @@ public class EnemyBehavior : MonoBehaviour {
                 new ConditionNode(IsDeadCond),
                 new ActionNode(DeathAction)
                 ),
-            //shoot and stand still when player is close enough
+            ////shoot and stand still when target is close enough
+            //new SequenceNode(
+            //    new ConditionNode(IsInShootingRange),
+            //    new ConditionNode(IsCloseEnoughToStop),
+            //    new ActionNode(RotateTowardsTarget),
+            //    new ActionNode(Shoot)
+            //    ),
+            //shoot and move when target is in range
             new SequenceNode(
                 new ConditionNode(IsInShootingRange),
-                new ConditionNode(IsCloseEnoughToStop),
-                 new ActionNode(RotateTowardsPlayer),
-                new ActionNode(Shoot)
-                ),
-
-            //shoot and move when player is in range
-            new SequenceNode(
-                new ConditionNode(IsInShootingRange),
-                new ActionNode(RotateTowardsPlayer),
+                new ActionNode(RotateTowardsTarget),
                 new ActionNode(Shoot),
-                new ActionNode(NavigateTowardsPlayer)
+                new ActionNode(NavigateTowardsTarget)
                 ),
-            //just move if player is not in range to shoot
+            //just move if target is not in range to shoot
             new SequenceNode(
-                new ActionNode(RotateTowardsPlayer),
-                new ActionNode(NavigateTowardsPlayer)
+                new ActionNode(RotateTowardsTarget),
+                new ActionNode(NavigateTowardsTarget)
                 )
             );
     }
-    private NodeState NavigateTowardsPlayer()
+
+    //=============== AI ===============
+    private NodeState NavigateTowardsTarget()
     {
         if (_target)
         {
@@ -93,12 +109,11 @@ public class EnemyBehavior : MonoBehaviour {
         }
         return NodeState.Success;
     }
-    private NodeState RotateTowardsPlayer()
+    private NodeState RotateTowardsTarget()
     {
         Vector3 targetDir = _target.position - transform.position;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, 90.0f * Time.deltaTime, 0.0f);
-        Debug.DrawRay(transform.position, newDir, Color.red);
-
+       
         transform.rotation = Quaternion.LookRotation(newDir, transform.up);
 
         return NodeState.Success;
@@ -171,9 +186,45 @@ public class EnemyBehavior : MonoBehaviour {
        return (d <= _distanceToShoot);
     }
 
+    private void DetermineTarget()
+    {
+        if(_isHitByPlayer)
+        {
+            _target = _player;
+            return;
+        }
+
+
+        Transform closestPlant = _plantManager.GetClosestPlant(transform);
+
+        if(closestPlant == null)
+        {
+            _target = _player;
+            return;
+        }
+
+        
+
+        float d1 = Vector3.Distance(closestPlant.position, transform.position);
+        float d2 = Vector3.Distance(_player.position, transform.position);
+
+        if (d1 < d2)
+        {
+            _target = closestPlant;
+        }
+        else _target = _player;
+
+    }
+
+    private IEnumerator PlayerHitCooldown()
+    {
+        yield return new WaitForSeconds(_PlayerHitCooldown);
+        _isHitByPlayer = false;
+    }
     // Update is called once per frame
     void Update()
     {
+        DetermineTarget();
        _rootNode.Tick();
     }
 }
