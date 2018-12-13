@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4492020551157988}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: LightningSpawnTransform (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +34,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4556826140773446}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: LightningSpawnPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,9 @@ GameObject:
   - component: {fileID: 114179233983003922}
   - component: {fileID: 114805432981413408}
   - component: {fileID: 114611076407122752}
-  m_Layer: 2
+  - component: {fileID: 114021474322654138}
+  - component: {fileID: 114023075634407900}
+  m_Layer: 11
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -72,7 +74,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4856338478167054}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +89,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4346854189084422}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: LightningSpawnTransform (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4724807716431468}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: LightningSpawnTransform (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4611801244334838}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: gunpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4555610934356734}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: LightningSpawnTransform (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +152,9 @@ GameObject:
   - component: {fileID: 20121904994391516}
   - component: {fileID: 81638460483036436}
   - component: {fileID: 114731822586268216}
-  m_Layer: 2
+  - component: {fileID: 114064936903872732}
+  - component: {fileID: 114411813279039214}
+  m_Layer: 11
   m_Name: Main Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +169,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4847443818633642}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: LightningSpawnTransform (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +187,7 @@ GameObject:
   - component: {fileID: 33122769823063436}
   - component: {fileID: 23259307380252076}
   - component: {fileID: 95270589102771018}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: Automatic Rifle Standard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,7 +202,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4159746440343406}
-  m_Layer: 2
+  m_Layer: 11
   m_Name: LightningSpawnTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,15 +254,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1289951445544668}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 32.8, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 32.8, z: 13.41}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4856338478167054}
   - {fileID: 4347210985473220}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!4 &4492020551157988
 Transform:
   m_ObjectHideFlags: 1
@@ -364,7 +368,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1490797090077774}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.302, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4556826140773446}
@@ -408,7 +412,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
+  m_ForceIntoRT: 1
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -453,7 +457,7 @@ MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1289951445544668}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -462,7 +466,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a0e0bdc8871b9cb4b8bf01d0a0825237, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -536,6 +540,90 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114021474322654138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289951445544668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e8e4782133d3eb45bad2f53d5bda239, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _plant1: {fileID: 1443190369003130, guid: 45eff72278a98e247b4ee978f02df4b7, type: 2}
+--- !u!114 &114023075634407900
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1289951445544668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e87a9f7d4f4cbe48a087cb81fe893a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 10
+  _healthbar: {fileID: 0}
+  _doFlicker: 0
+--- !u!114 &114064936903872732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1769031956009244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 4347210985473220}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  stopNaNPropagation: 1
+  antialiasingMode: 1
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!114 &114179233983003922
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -548,6 +636,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gravityModifier: 1
+--- !u!114 &114411813279039214
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1769031956009244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 7178ca4689243b2469a8c199ced77b09, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!114 &114611076407122752
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -594,7 +698,7 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 1056500868680380, guid: 0f6d301e6d9ecf047815f0c008af485c,
     type: 2}
   _gunpoint: {fileID: 1626896895200780}
-  _firerate: 0.1
+  _firerate: 0.2
 --- !u!114 &114934386517055582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -612,7 +716,7 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1289951445544668}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 04fb11f619b56964983dd0724f8be052, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5

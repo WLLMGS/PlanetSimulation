@@ -7,6 +7,8 @@ public class EnemySpawner : MonoBehaviour {
     [SerializeField] private GameObject _enemyPrefab = null;
     [SerializeField] private Transform _player;
 
+    private EnemyManager _enemyManager;
+
     private float _spawnrate = 10.0f;
     private int _spawnAmount = 5;
 
@@ -17,6 +19,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	void Start () {
         _player = GameObject.Find("Player").transform;
+        _enemyManager = EnemyManager.Instance;
     }
 
     private void Update()
@@ -25,7 +28,8 @@ public class EnemySpawner : MonoBehaviour {
 
         if(_timer <= 0.0f)
         {
-            if (_isPlayerInRange)
+            if (_isPlayerInRange
+                && !_enemyManager.HasCapBeenReached())
             {
                 _timer = _spawnrate;
                 SpawnWave();
@@ -37,7 +41,9 @@ public class EnemySpawner : MonoBehaviour {
     private void SpawnWave()
     {
         //set the amount of enemies that need to be spawned this wave
-        _spawnAmountCurrentWave = _spawnAmount;
+        int amount = Random.Range(_spawnAmount - 2, _spawnAmount);
+        _spawnAmountCurrentWave = amount;
+        
         //start coroutine that spawns enemies one by one
         StartCoroutine( SpawnEnemyCoroutine());
     }
@@ -69,8 +75,10 @@ public class EnemySpawner : MonoBehaviour {
 
         //decrement amount of enemies to spawn
         --_spawnAmountCurrentWave;
+
         //check if there are any more enemies that need to be spawned in this wave
-        if (_spawnAmountCurrentWave > 0)StartCoroutine( SpawnEnemyCoroutine());
+        //check also if enemy cap is not reached yet
+        if (_spawnAmountCurrentWave > 0 && !_enemyManager.HasCapBeenReached()) StartCoroutine( SpawnEnemyCoroutine());
 
     }
 

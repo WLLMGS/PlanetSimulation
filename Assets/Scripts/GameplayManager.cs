@@ -35,7 +35,7 @@ public class GameplayManager : MonoBehaviour {
 
    //============== Other ==============
    [SerializeField] private GameObject _canvas;
-    private int _amountOfSeeds = 0;
+    private int _amountOfSeeds = 50;
     private UIScript _UIManager = null;
 
     public int Seeds

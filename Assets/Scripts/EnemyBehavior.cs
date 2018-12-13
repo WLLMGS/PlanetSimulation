@@ -13,16 +13,15 @@ public class EnemyBehavior : MonoBehaviour {
 
     private Animator _animator;
 
+    private float _movespeed = 3.0f;
     private float _firerate = 1.0f;
     private bool _canshoot = true;
 
     private float _distanceToShoot = 10.0f;
-    private float _distanceToStop = 5.0f;
+    private float _distanceToStop = 1.5f;
     private float _PlayerHitCooldown = 1.0f;
 
     private SelectorNode _rootNode;
-    private bool _closeEnoughToPlayer = false;
-    private bool _isInRangeToShoot = false;
     private bool _isDead = false;
     private bool _isHitByPlayer = false;
 
@@ -68,8 +67,8 @@ public class EnemyBehavior : MonoBehaviour {
     void Start()
     {
         _animator = GetComponentInChildren<Animator>();
-        _plantManager = PlantManager.Instance;
-
+        _plantManager = PlantManager.Instance; //get plant manager to seek closest plant
+        EnemyManager.Instance.RegisterEnemy(gameObject); //register to enemy manager
         //behavior tree
         _rootNode = new SelectorNode(
             //when enemy dies
@@ -78,12 +77,12 @@ public class EnemyBehavior : MonoBehaviour {
                 new ActionNode(DeathAction)
                 ),
             ////shoot and stand still when target is close enough
-            //new SequenceNode(
-            //    new ConditionNode(IsInShootingRange),
-            //    new ConditionNode(IsCloseEnoughToStop),
-            //    new ActionNode(RotateTowardsTarget),
-            //    new ActionNode(Shoot)
-            //    ),
+            new SequenceNode(
+                new ConditionNode(IsInShootingRange),
+                new ConditionNode(IsCloseEnoughToStop),
+                new ActionNode(RotateTowardsTarget),
+                new ActionNode(Shoot)
+                ),
             //shoot and move when target is in range
             new SequenceNode(
                 new ConditionNode(IsInShootingRange),
@@ -98,13 +97,18 @@ public class EnemyBehavior : MonoBehaviour {
                 )
             );
     }
+    void Update()
+    {
+        DetermineTarget();
+        _rootNode.Tick();
+    }
 
-    //=============== AI ===============
+    //============================== AI ==============================
     private NodeState NavigateTowardsTarget()
     {
         if (_target)
         {
-            Vector3 distance = Vector3.MoveTowards(transform.position, _target.position, 3.0f * Time.deltaTime);
+            Vector3 distance = Vector3.MoveTowards(transform.position, _target.position, _movespeed * Time.deltaTime);
             transform.position = distance;
         }
         return NodeState.Success;
@@ -221,10 +225,7 @@ public class EnemyBehavior : MonoBehaviour {
         yield return new WaitForSeconds(_PlayerHitCooldown);
         _isHitByPlayer = false;
     }
-    // Update is called once per frame
-    void Update()
-    {
-        DetermineTarget();
-       _rootNode.Tick();
-    }
+
+
+   
 }

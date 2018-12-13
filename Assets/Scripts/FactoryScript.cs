@@ -19,7 +19,6 @@ public class FactoryScript : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            Debug.Log("Entered");
         }
         
     }
@@ -28,8 +27,7 @@ public class FactoryScript : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
-            Debug.Log("Left");
-        }
+           }
     }
 
 }

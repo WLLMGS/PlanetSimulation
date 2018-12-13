@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour
 {
 
     private Rigidbody _rb;
-    private float _moveforce = 40.0f;
-    private float _maxspeed = 10.0f;
+    private float _moveforce = 10.0f;
+    private float _maxspeed = 15.0f;
 
 
     void Start()
@@ -30,14 +30,20 @@ public class PlayerMovement : MonoBehaviour
         Vector3 right = gameObject.transform.Find("Mesh").transform.right;
         //  forward.x -= Mathf.Cos(10 * Mathf.Deg2Rad);
 
-        _rb.AddForce(yaxis * forward * _moveforce);
-        _rb.AddForce(xaxis * right * _moveforce);
+        //_rb.AddForce(yaxis * forward * _moveforce);
+        //_rb.AddForce(xaxis * right * _moveforce);
 
-        //clamp velocity
-        if(_rb.velocity.magnitude > _maxspeed)
-        {
-            _rb.velocity = _rb.velocity.normalized * _maxspeed;
-        }
+        ////clamp velocity
+        //if(_rb.velocity.magnitude > _maxspeed)
+        //{
+        //    _rb.velocity = _rb.velocity.normalized * _maxspeed;
+        //}
+
+        Vector3 velocity = Vector3.zero;
+        velocity += yaxis * forward * _moveforce;
+        velocity += xaxis * right * _moveforce;
+
+        _rb.velocity = velocity;
     }
 
 }

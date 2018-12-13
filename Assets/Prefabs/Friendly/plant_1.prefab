@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 114300836700722684}
   m_Layer: 11
   m_Name: plant_1
-  m_TagString: Plant
+  m_TagString: Plant1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1166,8 +1166,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e87a9f7d4f4cbe48a087cb81fe893a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 15
+  _maxHealth: 25
   _healthbar: {fileID: 114041873433730586}
+  _doFlicker: 1
 --- !u!114 &114322182362019298
 MonoBehaviour:
   m_ObjectHideFlags: 1

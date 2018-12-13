@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Factory
   - Plant
+  - Plant1
   layers:
   - Default
   - TransparentFX

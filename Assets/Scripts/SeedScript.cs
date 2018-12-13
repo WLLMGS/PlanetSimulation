@@ -28,7 +28,7 @@ public class SeedScript : MonoBehaviour {
         if(other.tag == "Player")
         {
             //TODO: add value to total seed counter
-            GameplayManager.Instance.AddSeeds(1);
+            GameplayManager.Instance.AddSeeds(_value);
             Destroy(gameObject);
         }
     }

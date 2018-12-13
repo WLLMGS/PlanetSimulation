@@ -47,12 +47,11 @@ namespace BehaviorTree
                 {
                     case NodeState.Running:
                         return result;
-                        break;
                     case NodeState.Failure:
                         break;
                     case NodeState.Success:
                         return result;
-                        break;
+                    
                 }
             }
 
@@ -77,12 +76,11 @@ namespace BehaviorTree
                 {
                     case NodeState.Running:
                         return result;
-                        break;
                     case NodeState.Success:
                         break;
                     case NodeState.Failure:
                         return result;
-                        break;
+                       
 
                 }
             }

@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4240851952356430}
   - component: {fileID: 114241345520541858}
+  - component: {fileID: 114017932154902728}
+  - component: {fileID: 114659871881951286}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -40,6 +42,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114017932154902728
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1020163154187298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46cbed08dfe8ab445b9f6e40b5479ccf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114241345520541858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51,4 +64,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dc9109c7fb542148ba47bbff9dd882b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 0}
   _canvas: {fileID: 1057277872081370, guid: d5eefb9f7761c654f834ddc5a3e970b6, type: 2}
+--- !u!114 &114659871881951286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1020163154187298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d168ac937e2114d997821dd563a9ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

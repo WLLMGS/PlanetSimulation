@@ -7,7 +7,7 @@ public class PlayerShooting : MonoBehaviour {
 	[SerializeField] private GameObject _bulletPrefab;
 	[SerializeField] private GameObject _gunpoint;
 
-	[SerializeField] private float _firerate = 0.25f;
+	[SerializeField] private float _firerate = 0.35f;
 	private float _cooldown = 0;
 
 	// Use this for initialization

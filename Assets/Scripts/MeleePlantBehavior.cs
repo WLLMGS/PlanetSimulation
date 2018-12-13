@@ -30,7 +30,7 @@ public class MeleePlantBehavior : MonoBehaviour
     void Start()
     {
         //register the plant at the plant manager
-        PlantManager.Instance.RegisterPlant(gameObject);
+        PlantManager.Instance.RegisterPlant1(transform.parent.gameObject);
 
         //behavior tree
         rootNode = new SelectorNode(

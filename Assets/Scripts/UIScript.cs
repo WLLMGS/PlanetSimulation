@@ -30,12 +30,19 @@ public class UIScript : MonoBehaviour
     void Start()
     {
         _gamemanager = GameplayManager.Instance;
+        UpdateUI();
     }
 
     void Update()
     {
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
         //update seed counter
         _seedCounter.text = _gamemanager.Seeds.ToString();
+
     }
 
     public void ActivateDeductionUI(int amount)

@@ -7,7 +7,16 @@ public class PlantManager : MonoBehaviour
 {
 
     private static PlantManager _instance = null;
-    private List<GameObject> _friendlyPlants = new List<GameObject>();
+
+    private int _friendPlant1Cap = 5;
+    private int _friendPlant2Cap = 5;
+    private int _friendPlant3Cap = 5;
+
+
+    private List<GameObject> _friendlyPlants_1 = new List<GameObject>();
+    private List<GameObject> _friendlyPlants_2 = new List<GameObject>();
+    private List<GameObject> _friendlyPlants_3 = new List<GameObject>();
+
 
     public static PlantManager Instance
     {
@@ -22,19 +31,66 @@ public class PlantManager : MonoBehaviour
         if (_instance == null) _instance = this;
     }
 
-    public void RegisterPlant(GameObject plant)
+    public void RegisterPlant1(GameObject plant)
     {
-        _friendlyPlants.Add(plant);
+        if (_friendlyPlants_1.Count >= _friendPlant1Cap)
+        {
+             RemoveOldestAndShift(_friendlyPlants_1);
+        }
+
+        _friendlyPlants_1.Add(plant);
     }
 
+    public void RegisterPlant2(GameObject plant)
+    {
+        if (_friendlyPlants_2.Count >= _friendPlant2Cap)
+        {
+            RemoveOldestAndShift(_friendlyPlants_2);
+        }
+
+        _friendlyPlants_2.Add(plant);
+    }
+
+    public void RegisterPlant3(GameObject plant)
+    {
+        if (_friendlyPlants_3.Count >= _friendPlant3Cap)
+        {
+            RemoveOldestAndShift(_friendlyPlants_3);
+        }
+        _friendlyPlants_3.Add(plant);
+    }
+
+    public void UnregisterPlant1(GameObject plant)
+    {
+        _friendlyPlants_1.Remove(plant);
+    }
+
+    public void UnregisterPlant2(GameObject plant)
+    {
+        _friendlyPlants_2.Remove(plant);
+    }
+
+    public void UnregisterPlant3(GameObject plant)
+    {
+        _friendlyPlants_3.Remove(plant);
+    }
+
+
+    private void RemoveOldestAndShift(List<GameObject> list)
+    {
+        Destroy(list[0]);
+        list.RemoveAt(0);
+    }
+
+    
     public Transform GetClosestPlant(Transform other)
     {
         Transform result = null;
         float shortestDistance = 1000.0f;
 
-        _friendlyPlants = _friendlyPlants.Where(item => item != null).ToList();
+        _friendlyPlants_1 = _friendlyPlants_1.Where(item => item != null).ToList();
 
-        foreach (GameObject g in _friendlyPlants)
+        foreach (GameObject g in _friendlyPlants_1)
         {
             float distance = Vector3.Distance(g.transform.position, other.position);
 

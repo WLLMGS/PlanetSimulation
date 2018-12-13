@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class HealthScript : MonoBehaviour {
 
     [SerializeField] private float _maxHealth;
     [SerializeField] private Slider _healthbar;
+    [SerializeField] private bool _doFlicker = true;
+
     private List<Material> _mats = new List<Material>();
-   
+    private List<Color> _originalColor = new List<Color>();
+
     private float _currentHeath;
     
 
@@ -47,10 +51,15 @@ public class HealthScript : MonoBehaviour {
         //get the attached material
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         
-        foreach(Renderer r in renderers)
+        if(_doFlicker)
         {
-            _mats.Add(r.material);
+            foreach (Renderer r in renderers)
+            {
+                _mats.Add(r.material);
+                _originalColor.Add(r.material.color);
+            }
         }
+       
 
     }
 
@@ -86,6 +95,21 @@ public class HealthScript : MonoBehaviour {
 
                 enemyBeh.IsDead = true;
                 break;
+            case "Player":
+                //game over
+                break;
+            case "Plant1":
+                PlantManager.Instance.UnregisterPlant1(gameObject);
+                Destroy(gameObject);
+                break;
+            case "Plant2":
+                PlantManager.Instance.UnregisterPlant2(gameObject);
+                Destroy(gameObject);
+                break;
+            case "Plant3":
+                PlantManager.Instance.UnregisterPlant3(gameObject);
+                Destroy(gameObject);
+                break;
             default:
                 Destroy(gameObject);
                 break;
@@ -97,9 +121,8 @@ public class HealthScript : MonoBehaviour {
     {
 
         foreach (Material m in _mats)
-        {
-
-            m.color *= new Color(1, 0, 0, 1);
+        {  
+           m.color += new Color(1, 0, 0, 1);
         }
 
         StartCoroutine(ChangeBackToNormalColor());
@@ -108,9 +131,9 @@ public class HealthScript : MonoBehaviour {
     {
         yield return new WaitForSeconds(0.1f);
 
-        foreach (Material m in _mats)
+        for (int i = 0; i < _mats.Count; ++i)
         {
-            m.color = new Color(1, 1, 1, 1);
+            _mats[i].color = _originalColor[i];
         }
     }
 
@@ -120,6 +143,6 @@ public class HealthScript : MonoBehaviour {
         Mathf.Clamp(_currentHeath, 0, _maxHealth);
         CheckIfAlive();
         UpdateUI();
-        DamageFlickerAnimation();
+        if(_doFlicker) DamageFlickerAnimation();
     }
 }
