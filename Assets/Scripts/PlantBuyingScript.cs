@@ -28,12 +28,7 @@ public class PlantBuyingScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            //spawn plant 1
-            int cost = MeleePlantBehavior.Cost;
-            if (_gamemanager.UseSeeds(cost))
-            {
-                Instantiate(_plant1, transform.position, transform.rotation);
-            }
+          
         }
     }
 

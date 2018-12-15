@@ -72,6 +72,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 break;
             case 4:
+                if (GameplayManager.Instance.Seeds < 5) IncrementTutorialStage();
                 if(Input.GetKeyDown(KeyCode.Alpha1))
                 {
                     IncrementTutorialStage();
@@ -82,6 +83,7 @@ public class TutorialManager : MonoBehaviour
                 {
                     _gamemanager.IsTutorialDone = true;
                     _factory.SetActive(true);
+                    _txtObjective.text = "Objective: Destroy The Factory";
                 }
                 break;
 
@@ -111,7 +113,7 @@ public class TutorialManager : MonoBehaviour
             case 4:
                 _txtObjective.text = "Spawning plants costs seeds.\n " +
                     "Your current amount of seeds are displayed in the top left corner.\n" +
-                    "Spawn a plant by pressing 1";
+                    "<Spawn a plant by pressing 1>";
                 break;
             case 5:
                 _txtObjective.text = "the red number shows the amount of plants you currently own and the max amount you can own. \n" +
