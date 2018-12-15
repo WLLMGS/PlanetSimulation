@@ -9,7 +9,7 @@ public class SideSpawner : MonoBehaviour
     [SerializeField] private Transform _player;
 
     private EnemyManager _enemyManager;
-
+    private GameplayManager _gamemanager;
     private bool _playerInRange = false;
     private bool _canSpawnEnemies = true;
     private float _spawnCooldown = 2.0f;
@@ -17,9 +17,15 @@ public class SideSpawner : MonoBehaviour
     private void Start()
     {
         _enemyManager = EnemyManager.Instance;
+        _gamemanager = GameplayManager.Instance;
     }
 
     private void Update()
+    {
+        if(_gamemanager.IsTutorialDone) HandleSpawning();
+    }
+
+    private void HandleSpawning()
     {
         if (_playerInRange && _canSpawnEnemies)
         {
@@ -57,7 +63,8 @@ public class SideSpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        //also keep spawning if there are plants in range of the side building
+        if (other.tag == "Player" || other.tag == "Plant1" || other.tag == "Plant2" || other.tag == "Plant3")
         {
             _playerInRange = true;
         }
@@ -65,7 +72,7 @@ public class SideSpawner : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" || other.tag == "Plant1" || other.tag == "Plant2" || other.tag == "Plant3")
         {
             _playerInRange = false;
         }

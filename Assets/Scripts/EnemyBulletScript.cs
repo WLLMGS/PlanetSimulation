@@ -23,7 +23,7 @@ public class EnemyBulletScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player" || other.tag == "Plant")
+        if(other.tag == "Player" || other.tag == "Plant1" || other.tag == "Plant2" || other.tag == "Plant3")
         {
             HealthScript health = other.GetComponent<HealthScript>();
 

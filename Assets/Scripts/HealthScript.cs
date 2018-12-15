@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class HealthScript : MonoBehaviour {
+public class HealthScript : MonoBehaviour
+{
 
     [SerializeField] private float _maxHealth;
     [SerializeField] private Slider _healthbar;
@@ -14,7 +15,7 @@ public class HealthScript : MonoBehaviour {
     private List<Color> _originalColor = new List<Color>();
 
     private float _currentHeath;
-    
+
 
     public float MaxHealth
     {
@@ -50,8 +51,8 @@ public class HealthScript : MonoBehaviour {
 
         //get the attached material
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
-        
-        if(_doFlicker)
+
+        if (_doFlicker)
         {
             foreach (Renderer r in renderers)
             {
@@ -59,7 +60,7 @@ public class HealthScript : MonoBehaviour {
                 _originalColor.Add(r.material.color);
             }
         }
-       
+
 
     }
 
@@ -75,12 +76,12 @@ public class HealthScript : MonoBehaviour {
         {
             DoOnDeathEvent();
             //Destroy(gameObject);
-        } 
+        }
     }
 
     void DoOnDeathEvent()
     {
-        switch(gameObject.tag)
+        switch (gameObject.tag)
         {
             case "Enemy":
                 var enemyBeh = gameObject.GetComponent<EnemyBehavior>();
@@ -94,6 +95,11 @@ public class HealthScript : MonoBehaviour {
                 }
 
                 enemyBeh.IsDead = true;
+                break;
+            case "TutorialEnemy":
+                gameObject.GetComponentInChildren<Animator>().SetTrigger("Die");
+                gameObject.GetComponent<LootDropScript>().DropLoot();
+                StartCoroutine(DestroyObj());
                 break;
             case "Player":
                 //game over
@@ -121,8 +127,8 @@ public class HealthScript : MonoBehaviour {
     {
 
         foreach (Material m in _mats)
-        {  
-           m.color += new Color(1, 0, 0, 1);
+        {
+            m.color *= new Color(1, 0, 0, 1);
         }
 
         StartCoroutine(ChangeBackToNormalColor());
@@ -137,12 +143,19 @@ public class HealthScript : MonoBehaviour {
         }
     }
 
+    IEnumerator DestroyObj()
+    {
+        yield return new WaitForSeconds(1.0f);
+        TutorialManager.Instance.IncrementTutorialStage();
+        Destroy(gameObject);
+    }
+
     public void Damage(float amount)
     {
         _currentHeath -= amount;
         Mathf.Clamp(_currentHeath, 0, _maxHealth);
         CheckIfAlive();
         UpdateUI();
-        if(_doFlicker) DamageFlickerAnimation();
+        if (_doFlicker) DamageFlickerAnimation();
     }
 }

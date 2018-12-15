@@ -7,7 +7,7 @@ public class PlantManager : MonoBehaviour
 {
 
     private static PlantManager _instance = null;
-
+    private UIScript _UIManager;
     private int _friendPlant1Cap = 5;
     private int _friendPlant2Cap = 5;
     private int _friendPlant3Cap = 5;
@@ -31,6 +31,11 @@ public class PlantManager : MonoBehaviour
         if (_instance == null) _instance = this;
     }
 
+    private void Start()
+    {
+        _UIManager = UIScript.Instance;
+    }
+
     public void RegisterPlant1(GameObject plant)
     {
         if (_friendlyPlants_1.Count >= _friendPlant1Cap)
@@ -39,6 +44,9 @@ public class PlantManager : MonoBehaviour
         }
 
         _friendlyPlants_1.Add(plant);
+
+        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_1.Count);
+
     }
 
     public void RegisterPlant2(GameObject plant)
@@ -49,6 +57,8 @@ public class PlantManager : MonoBehaviour
         }
 
         _friendlyPlants_2.Add(plant);
+
+        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_2.Count);
     }
 
     public void RegisterPlant3(GameObject plant)
@@ -58,21 +68,26 @@ public class PlantManager : MonoBehaviour
             RemoveOldestAndShift(_friendlyPlants_3);
         }
         _friendlyPlants_3.Add(plant);
+
+        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_3.Count);
     }
 
     public void UnregisterPlant1(GameObject plant)
     {
         _friendlyPlants_1.Remove(plant);
+        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_1.Count);
     }
 
     public void UnregisterPlant2(GameObject plant)
     {
         _friendlyPlants_2.Remove(plant);
+        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_2.Count);
     }
 
     public void UnregisterPlant3(GameObject plant)
     {
         _friendlyPlants_3.Remove(plant);
+        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_3.Count);
     }
 
 

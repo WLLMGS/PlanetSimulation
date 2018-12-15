@@ -18,7 +18,7 @@ public class EnemyBehavior : MonoBehaviour {
     private bool _canshoot = true;
 
     private float _distanceToShoot = 10.0f;
-    private float _distanceToStop = 1.5f;
+    private float _distanceToStop = 3.0f;
     private float _PlayerHitCooldown = 1.0f;
 
     private SelectorNode _rootNode;

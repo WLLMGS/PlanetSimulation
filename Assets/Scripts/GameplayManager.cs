@@ -6,6 +6,8 @@ public class GameplayManager : MonoBehaviour {
 
     //============== Instance ==============
     private static GameplayManager _instance = null;
+
+   
     
     public static GameplayManager Instance
     {
@@ -32,11 +34,10 @@ public class GameplayManager : MonoBehaviour {
         }
     }
 
-
    //============== Other ==============
-   [SerializeField] private GameObject _canvas;
-    private int _amountOfSeeds = 50;
+    private int _amountOfSeeds = 0;
     private UIScript _UIManager = null;
+    private bool _IsTutorialDone = false;
 
     public int Seeds
     {
@@ -46,10 +47,19 @@ public class GameplayManager : MonoBehaviour {
         }
     }
 
+    public bool IsTutorialDone
+    {
+        get
+        {
+            return _IsTutorialDone;
+        }
+        set
+        {
+            _IsTutorialDone = value;
+        }
+    }
+
     void Start () {
-        
-        //spawn canvas for UI
-        Instantiate(_canvas, transform.position, Quaternion.identity);
         _UIManager = UIScript.Instance;
     }
 

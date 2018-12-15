@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour {
+public class EnemySpawner : MonoBehaviour
+{
 
     [SerializeField] private GameObject _enemyPrefab = null;
     [SerializeField] private Transform _player;
 
     private EnemyManager _enemyManager;
+    private GameplayManager _gamemanager;
 
     private float _spawnrate = 10.0f;
     private int _spawnAmount = 5;
@@ -17,16 +19,23 @@ public class EnemySpawner : MonoBehaviour {
     private float _timer = 0;
     private bool _isPlayerInRange = false;
 
-	void Start () {
+    void Start()
+    {
         _player = GameObject.Find("Player").transform;
         _enemyManager = EnemyManager.Instance;
+        _gamemanager = GameplayManager.Instance;
     }
 
     private void Update()
     {
+        if(_gamemanager.IsTutorialDone) HandleSpawning();
+    }
+
+    private void HandleSpawning()
+    {
         _timer -= Time.deltaTime;
 
-        if(_timer <= 0.0f)
+        if (_timer <= 0.0f)
         {
             if (_isPlayerInRange
                 && !_enemyManager.HasCapBeenReached())
@@ -35,7 +44,6 @@ public class EnemySpawner : MonoBehaviour {
                 SpawnWave();
             }
         }
-
     }
 
     private void SpawnWave()
@@ -43,9 +51,9 @@ public class EnemySpawner : MonoBehaviour {
         //set the amount of enemies that need to be spawned this wave
         int amount = Random.Range(_spawnAmount - 2, _spawnAmount);
         _spawnAmountCurrentWave = amount;
-        
+
         //start coroutine that spawns enemies one by one
-        StartCoroutine( SpawnEnemyCoroutine());
+        StartCoroutine(SpawnEnemyCoroutine());
     }
 
 
@@ -66,7 +74,7 @@ public class EnemySpawner : MonoBehaviour {
         en.GetComponent<EnemyBehavior>().Target = _player;
     }
 
-   IEnumerator SpawnEnemyCoroutine()
+    IEnumerator SpawnEnemyCoroutine()
     {
         yield return new WaitForSeconds(0.2f);
 
@@ -78,7 +86,7 @@ public class EnemySpawner : MonoBehaviour {
 
         //check if there are any more enemies that need to be spawned in this wave
         //check also if enemy cap is not reached yet
-        if (_spawnAmountCurrentWave > 0 && !_enemyManager.HasCapBeenReached()) StartCoroutine( SpawnEnemyCoroutine());
+        if (_spawnAmountCurrentWave > 0 && !_enemyManager.HasCapBeenReached()) StartCoroutine(SpawnEnemyCoroutine());
 
     }
 
