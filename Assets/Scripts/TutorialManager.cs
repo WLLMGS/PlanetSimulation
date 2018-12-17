@@ -73,7 +73,7 @@ public class TutorialManager : MonoBehaviour
                 break;
             case 4:
                 if (GameplayManager.Instance.Seeds < 5) IncrementTutorialStage();
-                if(Input.GetKeyDown(KeyCode.Alpha1))
+                else if(Input.GetKeyDown(KeyCode.Alpha1))
                 {
                     IncrementTutorialStage();
                 }
