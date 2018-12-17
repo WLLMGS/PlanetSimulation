@@ -85,16 +85,26 @@ public class HealthScript : MonoBehaviour
         {
             case "Enemy":
                 var enemyBeh = gameObject.GetComponent<EnemyBehavior>();
-                if (enemyBeh == null) return;
-
-                if (!enemyBeh.IsDead)
+                if (enemyBeh != null)
                 {
-                    var lootComp = gameObject.GetComponent<LootDropScript>();
-                    if (lootComp == null) break;
-                    lootComp.DropLoot();
+                    if (!enemyBeh.IsDead)
+                    {
+                        var lootComp = gameObject.GetComponent<LootDropScript>();
+                        if (lootComp == null) break;
+                        lootComp.DropLoot();
+                    }
+                    enemyBeh.IsDead = true;
+                    return;
                 }
 
-                enemyBeh.IsDead = true;
+                var meleebehavior = gameObject.GetComponent<MeleeEnemyBehavior>();
+
+                if (meleebehavior != null)
+                {
+                    meleebehavior.IsDead = true;
+                    return;
+                }
+
                 break;
             case "TutorialEnemy":
                 gameObject.GetComponentInChildren<Animator>().SetTrigger("Die");

@@ -35,7 +35,7 @@ public class GameplayManager : MonoBehaviour {
     }
 
    //============== Other ==============
-    private int _amountOfSeeds = 0;
+    private int _amountOfSeeds = 50;
     private UIScript _UIManager = null;
     private bool _IsTutorialDone = false;
 
