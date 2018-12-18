@@ -20,6 +20,7 @@ public class EnemyBehavior : MonoBehaviour {
     private float _distanceToShoot = 10.0f;
     private float _distanceToStop = 3.0f;
     private float _PlayerHitCooldown = 1.0f;
+    private float _approachRange = 10.0f;
 
     private SelectorNode _rootNode;
     private bool _isDead = false;
@@ -69,6 +70,12 @@ public class EnemyBehavior : MonoBehaviour {
         _animator = GetComponentInChildren<Animator>();
         _plantManager = PlantManager.Instance; //get plant manager to seek closest plant
         EnemyManager.Instance.RegisterEnemy(gameObject); //register to enemy manager
+
+        var enemyStats = GetComponent<EnemyStats>();
+
+        _player = enemyStats.Player;
+        _approachRange = enemyStats.ApproachRange;
+        
         //behavior tree
         _rootNode = new SelectorNode(
             //when enemy dies
@@ -92,6 +99,7 @@ public class EnemyBehavior : MonoBehaviour {
                 ),
             //just move if target is not in range to shoot
             new SequenceNode(
+                new ConditionNode(IsTargetInRange),
                 new ActionNode(RotateTowardsTarget),
                 new ActionNode(NavigateTowardsTarget)
                 )
@@ -188,6 +196,12 @@ public class EnemyBehavior : MonoBehaviour {
     {
        float d = Vector3.Distance(_target.position, transform.position);
        return (d <= _distanceToShoot);
+    }
+
+    private bool IsTargetInRange()
+    {
+        float distance = Vector3.Distance(transform.position, _target.position);
+        return (distance <= _approachRange);
     }
 
     private void DetermineTarget()

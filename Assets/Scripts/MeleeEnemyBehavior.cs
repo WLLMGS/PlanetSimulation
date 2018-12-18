@@ -10,9 +10,11 @@ public class MeleeEnemyBehavior : MonoBehaviour
     private Transform _target;
     private Animator _animator;
 
-    private float _movespeed = 2.0f;
-    private float _stopDistance = 1.5f;
-    private float _attackCooldown = 0.25f;
+    private float _movespeed = 4.0f;
+    private float _stopDistance = 3.0f;
+    private float _attackCooldown = 0.5f;
+    private float _approachRange = 20.0f;
+
     private bool _canAttack = true;
 
     private bool _isDead = false;
@@ -53,6 +55,10 @@ public class MeleeEnemyBehavior : MonoBehaviour
 
         _plantManager = PlantManager.Instance;
 
+        var enemyStats = GetComponent<EnemyStats>();
+
+        _approachRange = enemyStats.ApproachRange;
+        _player = enemyStats.Player;
         _target = _player;
 
         _animator = GetComponentInChildren<Animator>();
@@ -71,6 +77,7 @@ public class MeleeEnemyBehavior : MonoBehaviour
                 ),
             //default action
             new SequenceNode(
+                new ConditionNode(IsTargetInRange),
                 new ActionNode(NavigateTowardsTarget),
                 new ActionNode(RotateTowardsTarget)
                 )
@@ -194,6 +201,12 @@ public class MeleeEnemyBehavior : MonoBehaviour
     private bool IsDeadCond()
     {
         return _isDead;
+    }
+
+    private bool IsTargetInRange()
+    {
+        float distance = Vector3.Distance(transform.position, _target.position);
+        return (distance <= _approachRange);
     }
 
     private IEnumerator Kill()

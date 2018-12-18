@@ -7,9 +7,9 @@ public class EnemyManager : MonoBehaviour
 {
 
     private static EnemyManager _instance = null;
-    private static int ENEMY_CAP = 15;
+    private static int ENEMY_CAP = 10;
 
-    private List<GameObject> _enemiesManager = new List<GameObject>();
+    private List<GameObject> _enemies = new List<GameObject>();
 
     public static EnemyManager Instance
     {
@@ -23,7 +23,7 @@ public class EnemyManager : MonoBehaviour
     {
         get
         {
-            return _enemiesManager.Count;
+            return _enemies.Count;
         }
     }
 
@@ -34,20 +34,37 @@ public class EnemyManager : MonoBehaviour
 
     public void RegisterEnemy(GameObject enemy)
     {
-        if (!_enemiesManager.Contains(enemy)) _enemiesManager.Add(enemy);
+        if (!_enemies.Contains(enemy)) _enemies.Add(enemy);
+    }
+
+    private void Update()
+    {
+        _enemies = _enemies.Where(item => item != null).ToList();
     }
 
     public GameObject GetClosestEnemy(Transform other)
     {
+        
         GameObject closest = null;
-        //TODO: complete later
+        float shortestDistance = 1000.0f;
+
+        foreach (var en in _enemies)
+        {
+            float distance = Vector3.Distance(other.position, en.transform.position);
+            if (distance < shortestDistance)
+            {
+                shortestDistance = distance;
+                closest = en;
+            }
+        }
+        
         return closest;
     }
     public bool HasCapBeenReached()
     {
-        _enemiesManager = _enemiesManager.Where(item => item != null).ToList();
+        _enemies = _enemies.Where(item => item != null).ToList();
 
-        return (_enemiesManager.Count >= ENEMY_CAP);
+        return (_enemies.Count >= ENEMY_CAP);
     }
 
 }

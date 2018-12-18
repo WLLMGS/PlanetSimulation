@@ -1,9 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using TMPro.EditorUtilities;
 using UnityEngine;
+using Random = UnityEngine.Random;
+
+[Serializable]
+public struct SpawnableEnemy
+{
+    public GameObject _enemy;
+    public int _rangeMin;
+    public int _rangeMax;
+}
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] private List<SpawnableEnemy> _enemyPrefabs = new List<SpawnableEnemy>();
+    private int _maxWeightRange;
+
 
     [SerializeField] private GameObject _enemyPrefab = null;
     [SerializeField] private Transform _player;
@@ -24,6 +38,10 @@ public class EnemySpawner : MonoBehaviour
         _player = GameObject.Find("Player").transform;
         _enemyManager = EnemyManager.Instance;
         _gamemanager = GameplayManager.Instance;
+
+        _maxWeightRange = _enemyPrefabs[_enemyPrefabs.Count - 1]._rangeMax;
+
+        Debug.Log(_maxWeightRange);
     }
 
     private void Update()
@@ -69,9 +87,27 @@ public class EnemySpawner : MonoBehaviour
         pos += transform.right * horz;
         pos += transform.up * -0.5f;
 
+        GameObject randomObj = GetRandomEnemy();
+
         //spawn enemy at that position and set target to player
-        GameObject en = Instantiate(_enemyPrefab, pos, Quaternion.identity);
-        en.GetComponent<EnemyBehavior>().Target = _player;
+        GameObject en = Instantiate(randomObj, pos, Quaternion.identity);
+        en.GetComponent<EnemyStats>().Player = _player;
+
+    }
+
+    private GameObject GetRandomEnemy()
+    {
+        int index = Random.Range(0, _maxWeightRange);
+
+        foreach (var en in _enemyPrefabs)
+        {
+            if (index >= en._rangeMin && index <= en._rangeMax)
+            {
+                return en._enemy;
+            }
+        }
+
+        return null;
     }
 
     IEnumerator SpawnEnemyCoroutine()

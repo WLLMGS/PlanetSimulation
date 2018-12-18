@@ -6,6 +6,8 @@ public class PlantBuyingScript : MonoBehaviour
 {
 
     [SerializeField] private GameObject _plant1;
+    [SerializeField] private GameObject _plant2;
+
 
     private GameplayManager _gamemanager;
 
@@ -28,7 +30,12 @@ public class PlantBuyingScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-          
+            //spawn plant 2
+            int cost = PeaShooterBehavior.Cost;
+            if (_gamemanager.UseSeeds(cost))
+            {
+                Instantiate(_plant2, transform.position, transform.rotation);
+            }
         }
     }
 

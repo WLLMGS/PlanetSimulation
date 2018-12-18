@@ -10,6 +10,7 @@ TagManager:
   - Plant
   - Plant1
   - TutorialEnemy
+  - Plant2
   layers:
   - Default
   - TransparentFX

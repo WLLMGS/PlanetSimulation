@@ -46,7 +46,7 @@ public class SideSpawner : MonoBehaviour
                 if (!_enemyManager.HasCapBeenReached())
                 {
                     GameObject en = Instantiate(_enemy, pos, Quaternion.identity);
-                    en.GetComponent<EnemyBehavior>().Target = _player;
+                    en.GetComponent<EnemyStats>().Player = _player;
                 }
             }
 

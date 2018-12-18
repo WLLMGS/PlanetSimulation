@@ -440,6 +440,7 @@ GameObject:
   - component: {fileID: 114987706173891444}
   - component: {fileID: 114302470452279008}
   - component: {fileID: 114996775060136450}
+  - component: {fileID: 114678537572163804}
   m_Layer: 9
   m_Name: Enemy_Officer_1
   m_TagString: Enemy
@@ -1312,6 +1313,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114678537572163804
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1633002951714480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1b8828227ffcb0469385a2f661fe8d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114704055024359054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1387,6 +1399,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _lootPrefab: {fileID: 1876050646752900, guid: 11ef8e8fecb30fd4d90bb5065e6faa9a,
+    type: 2}
+  _healthpackPrefab: {fileID: 1417738873071550, guid: a4cfd293c12ab6f42ace0ea9cde9b124,
     type: 2}
   _valueMin: 1
   _valueMax: 5

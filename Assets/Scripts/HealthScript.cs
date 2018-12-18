@@ -85,11 +85,11 @@ public class HealthScript : MonoBehaviour
         {
             case "Enemy":
                 var enemyBeh = gameObject.GetComponent<EnemyBehavior>();
+                var lootComp = gameObject.GetComponent<LootDropScript>();
                 if (enemyBeh != null)
                 {
                     if (!enemyBeh.IsDead)
                     {
-                        var lootComp = gameObject.GetComponent<LootDropScript>();
                         if (lootComp == null) break;
                         lootComp.DropLoot();
                     }
@@ -101,7 +101,12 @@ public class HealthScript : MonoBehaviour
 
                 if (meleebehavior != null)
                 {
-                    meleebehavior.IsDead = true;
+                    if (!meleebehavior.IsDead)
+                    {
+                        if (lootComp == null) break;
+                        lootComp.DropLoot();
+                        meleebehavior.IsDead = true;
+                    }
                     return;
                 }
 
@@ -113,6 +118,7 @@ public class HealthScript : MonoBehaviour
                 break;
             case "Player":
                 //game over
+                GameplayManager.Instance.NotifyPlayerDeath();
                 break;
             case "Plant1":
                 PlantManager.Instance.UnregisterPlant1(gameObject);

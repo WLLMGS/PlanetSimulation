@@ -14,9 +14,9 @@ public class MeleePlantBehavior : MonoBehaviour
     private SelectorNode rootNode;
     private List<GameObject> _enemiesInRange = new List<GameObject>();
     private bool _canAttack = true;
-    private float _attackRate = 0.25f;
+    private float _attackRate = 0.5f;
     GameObject _target = null;
-
+    
     public static int Cost
     {
         get

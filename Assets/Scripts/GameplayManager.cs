@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameplayManager : MonoBehaviour {
 
@@ -35,9 +36,9 @@ public class GameplayManager : MonoBehaviour {
     }
 
    //============== Other ==============
-    private int _amountOfSeeds = 50;
+    private int _amountOfSeeds = 0;
     private UIScript _UIManager = null;
-    private bool _IsTutorialDone = false;
+   [SerializeField] private bool _IsTutorialDone = false;
 
     public int Seeds
     {
@@ -76,5 +77,12 @@ public class GameplayManager : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    public void NotifyPlayerDeath()
+    {
+        Debug.Log("GAME OVER");
+        //go to game over scene
+        SceneManager.LoadScene(1);
     }
 }
