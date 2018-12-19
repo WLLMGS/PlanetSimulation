@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShooting : MonoBehaviour {
+public class PlayerShooting : MonoBehaviour
+{
 
-	[SerializeField] private GameObject _bulletPrefab;
+    private static bool _CanShoot = true;
+
+    public static bool CanShoot
+    {
+        get { return _CanShoot; }
+        set { _CanShoot = value; }
+    }
+
+    [SerializeField] private GameObject _bulletPrefab;
 	[SerializeField] private GameObject _gunpoint;
 
 	[SerializeField] private float _firerate = 0.35f;
@@ -17,7 +26,7 @@ public class PlayerShooting : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		HandleShooting();
+        if(_CanShoot) HandleShooting();
 	}
 
 	void HandleShooting()

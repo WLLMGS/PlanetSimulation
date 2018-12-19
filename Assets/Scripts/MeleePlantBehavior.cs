@@ -113,7 +113,7 @@ public class MeleePlantBehavior : MonoBehaviour
 
         HealthScript health = _target.GetComponent<HealthScript>();
 
-        health.Damage(1);
+        health.Damage(PlayerStats.PlayerDamage);
 
         _canAttack = false;
 

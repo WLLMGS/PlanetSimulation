@@ -132,6 +132,9 @@ public class HealthScript : MonoBehaviour
                 PlantManager.Instance.UnregisterPlant3(gameObject);
                 Destroy(gameObject);
                 break;
+            case "Factory":
+                GameplayManager.Instance.NotifyFactoryDestroyed(gameObject.transform);
+                break;
             default:
                 Destroy(gameObject);
                 break;

@@ -5,10 +5,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
 
+    private static bool _CanMove = true;
+
+    public static bool CanMove
+    {
+        get { return _CanMove; }
+        set { _CanMove = value; }
+    }
+
     private Rigidbody _rb;
     private float _moveforce = 10.0f;
     private float _maxspeed = 15.0f;
-
+    
 
     void Start()
     {
@@ -18,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        HandleMovement();
+        if(_CanMove) HandleMovement();
     }
 
     void HandleMovement()

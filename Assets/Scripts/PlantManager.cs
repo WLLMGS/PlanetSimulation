@@ -34,6 +34,14 @@ public class PlantManager : MonoBehaviour
     private void Start()
     {
         _UIManager = UIScript.Instance;
+
+        _friendPlant1Cap = PlayerStats.FriendlyPlant1Cap;
+        _friendPlant2Cap = PlayerStats.FriendlyPlant2Cap;
+        _friendPlant3Cap = PlayerStats.FriendlyPlant3Cap;
+
+        _UIManager.SetMaxAmountPlant1(_friendPlant1Cap);
+        _UIManager.SetMaxAmountPlant2(_friendPlant2Cap);
+        _UIManager.SetMaxAmountPlant3(_friendPlant3Cap);
     }
 
     private void Update()
@@ -145,6 +153,19 @@ public class PlantManager : MonoBehaviour
 
 
         return result;
+    }
+
+    public void UpdateCap1()
+    {
+        _friendPlant1Cap = PlayerStats.FriendlyPlant1Cap;
+    }
+    public void UpdateCap2()
+    {
+        _friendPlant2Cap = PlayerStats.FriendlyPlant2Cap;
+    }
+    public void UpdateCap3()
+    {
+        _friendPlant3Cap = PlayerStats.FriendlyPlant3Cap;
     }
 
 }

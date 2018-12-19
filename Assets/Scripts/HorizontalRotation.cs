@@ -2,12 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HorizontalRotation : MonoBehaviour {
+public class HorizontalRotation : MonoBehaviour
+{
+
+    private static bool _canRotate = true;
+
+    public static bool CanRotate
+    {
+        get { return _canRotate; }
+        set { _canRotate = value; }
+    }
 
 	[SerializeField] private Transform _mesh;
 
 	void Update () {
-		HandleRotationHorizontal();
+
+        if(_canRotate) HandleRotationHorizontal();
 	}
 
 	void HandleRotationHorizontal()

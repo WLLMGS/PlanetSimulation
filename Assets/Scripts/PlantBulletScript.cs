@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BulletScript : MonoBehaviour
-{
+public class PlantBulletScript : MonoBehaviour {
+
     [SerializeField] private float _speed = 50.0f;
     private GameplayManager _gamemanager;
     void Start()
@@ -34,10 +34,10 @@ public class BulletScript : MonoBehaviour
             EnemyBehavior beh = other.GetComponent<EnemyBehavior>();
 
             //if no health return
-            if (health == null ) return;
+            if (health == null) return;
 
             //replace later with player damage
-            health.Damage(PlayerStats.PlayerDamage);
+            health.Damage(PlayerStats.PlantDamage);
 
             //if no beh return
             if (beh == null) return;
@@ -52,10 +52,10 @@ public class BulletScript : MonoBehaviour
                 HealthScript health = other.GetComponent<HealthScript>();
                 if (health == null) return;
 
-                health.Damage(PlayerStats.PlayerDamage);
+                health.Damage(PlayerStats.PlantDamage);
             }
         }
-        else if(other.tag == "TutorialEnemy")
+        else if (other.tag == "TutorialEnemy")
         {
             //destroy bullet
             Destroy(gameObject);
@@ -66,7 +66,7 @@ public class BulletScript : MonoBehaviour
             if (health == null) return;
 
             //replace later with player damage
-            health.Damage(PlayerStats.PlayerDamage);
+            health.Damage(PlayerStats.PlantDamage);
         }
 
     }

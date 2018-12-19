@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameplayManager : MonoBehaviour {
+public class GameplayManager : MonoBehaviour
+{
 
     //============== Instance ==============
     private static GameplayManager _instance = null;
 
-   
-    
+
+
     public static GameplayManager Instance
     {
         get
@@ -22,7 +23,7 @@ public class GameplayManager : MonoBehaviour {
     {
         if (_instance == null) _instance = this;
 
-        
+
     }
 
     //============== Camera ==============
@@ -35,10 +36,14 @@ public class GameplayManager : MonoBehaviour {
         }
     }
 
-   //============== Other ==============
+    //============== Other ==============
     private int _amountOfSeeds = 0;
     private UIScript _UIManager = null;
-   [SerializeField] private bool _IsTutorialDone = false;
+    [SerializeField] private bool _IsTutorialDone = false;
+    [SerializeField] private GameObject _storePrefab;
+    [SerializeField] private GameObject _tooltip;
+    [SerializeField] private GameObject _shop;
+
 
     public int Seeds
     {
@@ -60,7 +65,8 @@ public class GameplayManager : MonoBehaviour {
         }
     }
 
-    void Start () {
+    void Start()
+    {
         _UIManager = UIScript.Instance;
     }
 
@@ -68,7 +74,7 @@ public class GameplayManager : MonoBehaviour {
     {
         if (amount > 0) _amountOfSeeds += amount;
     }
-	public bool UseSeeds(int amount)
+    public bool UseSeeds(int amount)
     {
         if (_amountOfSeeds >= amount)
         {
@@ -84,5 +90,14 @@ public class GameplayManager : MonoBehaviour {
         Debug.Log("GAME OVER");
         //go to game over scene
         SceneManager.LoadScene(1);
+    }
+
+    public void NotifyFactoryDestroyed(Transform t)
+    {
+        //spawn store at the location
+        var store = Instantiate(_storePrefab, t.position, t.rotation);
+        store.GetComponent<StoreAccessScript>()._tooltip = _tooltip;
+        store.GetComponent<StoreAccessScript>()._shop = _shop;
+        Destroy(t.gameObject);
     }
 }
