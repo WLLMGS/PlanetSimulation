@@ -33,7 +33,11 @@ public class PeaShooterBehavior : MonoBehaviour
         _animator.speed = 4.0f;
 
         _gunpoint = transform.Find("gunpoint");
-        _factory = GameObject.Find("Factory").transform;
+
+        if (GameplayManager.Instance.CurrentFactory != null)
+        {
+            _factory = GameplayManager.Instance.CurrentFactory.transform;
+        }
 
 
         _rootNode = new SelectorNode(
@@ -80,7 +84,7 @@ public class PeaShooterBehavior : MonoBehaviour
         //start cooldown
         _canAttack = false;
         Invoke("ReadyAttack", _attackCooldown);
-        
+
         return NodeState.Success;
     }
     private NodeState RotateTowardsTarget()

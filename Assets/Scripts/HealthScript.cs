@@ -133,6 +133,11 @@ public class HealthScript : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case "Factory":
+                var loot = GetComponent<LootDropScript>();
+                if (loot)
+                {
+                    loot.DropLoot();
+                }
                 GameplayManager.Instance.NotifyFactoryDestroyed(gameObject.transform);
                 break;
             default:

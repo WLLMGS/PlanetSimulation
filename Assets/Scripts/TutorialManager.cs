@@ -26,7 +26,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Text _txtObjective;
     [SerializeField] private GameObject _tutorialEnemy;
     [SerializeField] private GameObject _player;
-    [SerializeField] private GameObject _factory;
+    private GameObject _factory;
 
     private GameplayManager _gamemanager;
     private int _tutorialStage = 0;
@@ -38,7 +38,8 @@ public class TutorialManager : MonoBehaviour
 
         _txtObjective.text = "Objective: Left Click To Shoot";
 
-        _factory.SetActive(false);
+        _factory = GameplayManager.Instance.CurrentFactory;
+        if(_factory) _factory.SetActive(false);
     }
     private void Update()
     {
@@ -84,6 +85,7 @@ public class TutorialManager : MonoBehaviour
                     _gamemanager.IsTutorialDone = true;
                     _factory.SetActive(true);
                     _txtObjective.text = "Objective: Destroy The Factory";
+                    IncrementTutorialStage();
                 }
                 break;
 

@@ -5,12 +5,22 @@ using UnityEngine;
 public class StoreAccessScript : MonoBehaviour
 {
 
-    [SerializeField] public GameObject _tooltip;
     [SerializeField] public GameObject _shop;
 
+    private UIScript _UI;
 
     private bool _IsHovering = false;
     private bool _isInShop = false;
+
+    private void Awake()
+    {
+        //DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        _UI = UIScript.Instance;
+    }
 
     private void Update()
     {
@@ -28,7 +38,7 @@ public class StoreAccessScript : MonoBehaviour
 
             _isInShop = true;
 
-            _tooltip.SetActive(false);
+            _UI.EnableTooltip("<Press E To Access Store");
 
             _shop.SetActive(true);
 
@@ -48,7 +58,7 @@ public class StoreAccessScript : MonoBehaviour
 
             _isInShop = false;
 
-            _tooltip.SetActive(true);
+            _UI.EnableTooltip("<Press E To Access Store");
 
             _shop.SetActive(false);
         }
@@ -59,7 +69,7 @@ public class StoreAccessScript : MonoBehaviour
         if (other.tag == "Player")
         {
             //show tooltip
-            _tooltip.SetActive(true);
+            _UI.EnableTooltip("<Press E To Access Store");
             _IsHovering = true;
         }
     }
@@ -69,7 +79,7 @@ public class StoreAccessScript : MonoBehaviour
         if (other.tag == "Player")
         {
             //hide tooltip
-            _tooltip.SetActive(false);
+            _UI.DisableTooltip();
             _IsHovering = false;
         }
     }

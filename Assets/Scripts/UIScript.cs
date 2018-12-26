@@ -11,6 +11,9 @@ public class UIScript : MonoBehaviour
     [SerializeField] private Text _seedCounter;
     [SerializeField] private UISeedDeductionScript _UIDeduction;
 
+    [SerializeField] private GameObject _tooltip;
+    [SerializeField] private Text _txtObjective;
+
     [SerializeField] private Text _currentAmount_p1;
     [SerializeField] private Text _currentAmount_p2;
     [SerializeField] private Text _currentAmount_p3;
@@ -32,6 +35,8 @@ public class UIScript : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         if (_instance == null) _instance = this;
     }
 
@@ -83,6 +88,22 @@ public class UIScript : MonoBehaviour
     public void SetMaxAmountPlant3(int amount)
     {
         _maxAmount_p3.text = amount.ToString();
+    }
+
+    public void DisableTooltip()
+    {
+        _tooltip.SetActive(false);
+    }
+
+    public void EnableTooltip(string message)
+    {
+        _tooltip.GetComponent<Text>().text = message;
+        _tooltip.SetActive(true);
+    }
+
+    public void SetObjective(string message)
+    {
+        _txtObjective.text = message;
     }
 
 }

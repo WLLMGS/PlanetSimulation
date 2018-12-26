@@ -40,8 +40,6 @@ public class EnemySpawner : MonoBehaviour
         _gamemanager = GameplayManager.Instance;
 
         _maxWeightRange = _enemyPrefabs[_enemyPrefabs.Count - 1]._rangeMax;
-
-        Debug.Log(_maxWeightRange);
     }
 
     private void Update()

@@ -16,7 +16,12 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody _rb;
     private float _moveforce = 10.0f;
     private float _maxspeed = 15.0f;
-    
+
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     void Start()
     {

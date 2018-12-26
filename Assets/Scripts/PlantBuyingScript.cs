@@ -7,7 +7,7 @@ public class PlantBuyingScript : MonoBehaviour
 
     [SerializeField] private GameObject _plant1;
     [SerializeField] private GameObject _plant2;
-
+    [SerializeField] private GameObject _plant3;
 
     private GameplayManager _gamemanager;
 
@@ -37,6 +37,17 @@ public class PlantBuyingScript : MonoBehaviour
                 Instantiate(_plant2, transform.position, transform.rotation);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            int cost = ChasePlantBehavior.Cost;
+
+            if (_gamemanager.UseSeeds(cost))
+            {
+                Instantiate(_plant3, transform.position, transform.rotation);
+            }
+        }
+
     }
 
 }

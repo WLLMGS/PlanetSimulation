@@ -16,6 +16,7 @@ public class PlanetAttractorScript : MonoBehaviour
 
 	void Awake()
 	{
+        DontDestroyOnLoad(gameObject);
 		if(_instance == null) _instance = this;
 	}
 

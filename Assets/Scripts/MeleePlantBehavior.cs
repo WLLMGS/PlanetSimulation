@@ -113,7 +113,7 @@ public class MeleePlantBehavior : MonoBehaviour
 
         HealthScript health = _target.GetComponent<HealthScript>();
 
-        health.Damage(PlayerStats.PlayerDamage);
+        health.Damage(PlayerStats.PlantDamage);
 
         _canAttack = false;
 
@@ -133,7 +133,7 @@ public class MeleePlantBehavior : MonoBehaviour
         
         Vector3 targetDir = _target.transform.position - transform.position;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, 90.0f * Time.deltaTime, 0.0f);
-        Debug.DrawRay(transform.position, newDir, Color.red);
+        //Debug.DrawRay(transform.position, newDir, Color.red);
 
         transform.parent.rotation = Quaternion.LookRotation(newDir, transform.up);
 

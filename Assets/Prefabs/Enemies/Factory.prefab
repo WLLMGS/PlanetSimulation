@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 33316884598391946}
   - component: {fileID: 23935298423742700}
   m_Layer: 0
-  m_Name: Factory (1)
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 4799317379511128}
   - component: {fileID: 65864696559724806}
   - component: {fileID: 114400682100756426}
+  - component: {fileID: 114204357171682054}
   m_Layer: 10
   m_Name: Factory
   m_TagString: Factory
@@ -123,7 +124,7 @@ GameObject:
   - component: {fileID: 135988495226857404}
   - component: {fileID: 114588439049359540}
   - component: {fileID: 114213998158968478}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,6 +335,23 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114204357171682054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443265565953820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ef921eaf0f6e14fbdace9aca99718e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lootPrefab: {fileID: 1876050646752900, guid: 11ef8e8fecb30fd4d90bb5065e6faa9a,
+    type: 2}
+  _healthpackPrefab: {fileID: 1876050646752900, guid: 11ef8e8fecb30fd4d90bb5065e6faa9a,
+    type: 2}
+  _valueMin: 15
+  _valueMax: 25
 --- !u!114 &114213998158968478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -382,6 +400,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96fe76e0a6d6b4c4d8def6378cd39053, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyPrefabs:
+  - _enemy: {fileID: 1633002951714480, guid: e460ea0e663777c44b5e4887ce926a32, type: 2}
+    _rangeMin: 0
+    _rangeMax: 1
+  - _enemy: {fileID: 1409363152829982, guid: 37e03a2918d89cc4784414cff0c88326, type: 2}
+    _rangeMin: 2
+    _rangeMax: 6
   _enemyPrefab: {fileID: 1633002951714480, guid: e460ea0e663777c44b5e4887ce926a32,
     type: 2}
   _player: {fileID: 0}
@@ -515,7 +540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 1.373}
+  m_AnchoredPosition: {x: -0.338, y: 2.023}
   m_SizeDelta: {x: 100, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224515152709060938

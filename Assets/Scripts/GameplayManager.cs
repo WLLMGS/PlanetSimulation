@@ -8,9 +8,7 @@ public class GameplayManager : MonoBehaviour
 
     //============== Instance ==============
     private static GameplayManager _instance = null;
-
-
-
+    
     public static GameplayManager Instance
     {
         get
@@ -21,6 +19,9 @@ public class GameplayManager : MonoBehaviour
 
     private void Awake()
     {
+
+        DontDestroyOnLoad(gameObject);
+        
         if (_instance == null) _instance = this;
 
 
@@ -40,10 +41,24 @@ public class GameplayManager : MonoBehaviour
     private int _amountOfSeeds = 0;
     private UIScript _UIManager = null;
     [SerializeField] private bool _IsTutorialDone = false;
-    [SerializeField] private GameObject _storePrefab;
-    [SerializeField] private GameObject _tooltip;
-    [SerializeField] private GameObject _shop;
+    [SerializeField] private GameObject _FactoryPrefab;
+    [SerializeField] private Transform _FactorySpawnPoint;
 
+  
+
+    [SerializeField] private GameObject _storePrefab;
+    [SerializeField] private GameObject _shop;
+    [SerializeField] private GameObject _Door;
+    
+    private int _GameStage = 1;
+
+
+    private GameObject _currentFactory;
+
+    public GameObject CurrentFactory
+    {
+        get { return _currentFactory; }
+    }
 
     public int Seeds
     {
@@ -68,6 +83,23 @@ public class GameplayManager : MonoBehaviour
     void Start()
     {
         _UIManager = UIScript.Instance;
+
+        SpawnFactory();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
+
+    void SpawnFactory()
+    {
+        var inst = Instantiate(_FactoryPrefab, _FactorySpawnPoint.position, _FactorySpawnPoint.rotation);
+        _currentFactory = inst;
+        DontDestroyOnLoad(inst);
     }
 
     public void AddSeeds(int amount)
@@ -95,9 +127,31 @@ public class GameplayManager : MonoBehaviour
     public void NotifyFactoryDestroyed(Transform t)
     {
         //spawn store at the location
-        var store = Instantiate(_storePrefab, t.position, t.rotation);
-        store.GetComponent<StoreAccessScript>()._tooltip = _tooltip;
+
+        Vector3 storePos = t.position + t.right * -5.0f;
+
+        var store = Instantiate(_storePrefab, storePos, t.rotation);
         store.GetComponent<StoreAccessScript>()._shop = _shop;
+
+        //spawn door to go to next level
+
+        Vector3 doorPos = t.position + t.right * 5.0f;
+        Instantiate(_Door, doorPos, t.rotation);
+
+        //update objective
+        _UIManager.SetObjective("Go Through The Door To Continue");
+
         Destroy(t.gameObject);
+    }
+
+    public void NotifyAdvanceGame()
+    {
+        if (_GameStage == 1)
+        {
+            ++_GameStage;
+            SceneManager.LoadScene(2);
+            SpawnFactory();
+        }
+        
     }
 }
