@@ -147,7 +147,7 @@ public class MeleeEnemyBehavior : MonoBehaviour
         HealthScript health = _target.gameObject.GetComponent<HealthScript>();
         if (health == null) return NodeState.Failure;
 
-        health.Damage(1.0f);
+        health.Damage(EnemyStats.EnemyDamage);
 
         //start cooldown
         _canAttack = false;

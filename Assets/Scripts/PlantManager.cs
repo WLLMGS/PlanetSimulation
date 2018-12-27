@@ -96,13 +96,13 @@ public class PlantManager : MonoBehaviour
     public void UnregisterPlant2(GameObject plant)
     {
         _friendlyPlants_2.Remove(plant);
-        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_2.Count);
+        _UIManager.SetCurrentAmountPlant2(_friendlyPlants_2.Count);
     }
 
     public void UnregisterPlant3(GameObject plant)
     {
         _friendlyPlants_3.Remove(plant);
-        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_3.Count);
+        _UIManager.SetCurrentAmountPlant3(_friendlyPlants_3.Count);
     }
 
 

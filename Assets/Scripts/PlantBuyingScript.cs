@@ -29,23 +29,24 @@ public class PlantBuyingScript : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            //spawn plant 2
-            int cost = PeaShooterBehavior.Cost;
-            if (_gamemanager.UseSeeds(cost))
-            {
-                Instantiate(_plant2, transform.position, transform.rotation);
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
+        {   //spawn plant 2
             int cost = ChasePlantBehavior.Cost;
 
             if (_gamemanager.UseSeeds(cost))
             {
                 Instantiate(_plant3, transform.position, transform.rotation);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            //spawn plant 3
+            int cost = PeaShooterBehavior.Cost;
+            if (_gamemanager.UseSeeds(cost))
+            {
+                Instantiate(_plant2, transform.position, transform.rotation);
+            }
+            
         }
 
     }

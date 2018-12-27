@@ -25,8 +25,8 @@ public class EnemySpawner : MonoBehaviour
     private EnemyManager _enemyManager;
     private GameplayManager _gamemanager;
 
-    private float _spawnrate = 10.0f;
-    private int _spawnAmount = 5;
+    public static float _spawnrate = 10.0f; //in seconds
+    public static int _spawnAmount = 5;
 
     private int _spawnAmountCurrentWave = 0;
 

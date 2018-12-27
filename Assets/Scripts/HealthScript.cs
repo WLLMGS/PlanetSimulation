@@ -47,6 +47,9 @@ public class HealthScript : MonoBehaviour
     private void Start()
     {
         _currentHeath = _maxHealth;
+
+        Init();
+
         UpdateUI();
 
         //get the attached material
@@ -62,6 +65,32 @@ public class HealthScript : MonoBehaviour
         }
 
 
+    }
+
+    private void Init()
+    {
+        if (gameObject.tag == "Player")
+        {
+            _maxHealth = PlayerStats.PlayerHealth;
+            _currentHeath = _maxHealth;
+        }
+        else if (gameObject.tag == "Plant1"
+                 || gameObject.tag == "Plant2"
+                 || gameObject.tag == "Plant3")
+        {
+            _maxHealth = PlayerStats.PlantHealth;
+            _currentHeath = _maxHealth;
+        }
+        else if (gameObject.tag == "Enemy")
+        {
+            _maxHealth = EnemyStats.EnemyHealth;
+            _currentHeath = _maxHealth;
+        }
+        else if (gameObject.tag == "Factory")
+        {
+            _maxHealth = EnemyStats.FactoryHealth * GameplayManager.Instance.GameStage;
+            _currentHeath = _maxHealth;
+        }
     }
 
     void UpdateUI()

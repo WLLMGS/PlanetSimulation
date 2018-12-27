@@ -30,7 +30,7 @@ public class EnemyBulletScript : MonoBehaviour {
             if (health == null) return;
 
             //replace later with player damage
-            health.Damage(1.0f);
+            health.Damage(EnemyStats.EnemyDamage);
             Destroy(gameObject);
         }
         else if(other.tag == "Factory")

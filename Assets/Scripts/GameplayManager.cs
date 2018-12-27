@@ -80,6 +80,11 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    public int GameStage
+    {
+        get { return _GameStage; }
+    }
+
     void Start()
     {
         _UIManager = UIScript.Instance;
@@ -148,6 +153,13 @@ public class GameplayManager : MonoBehaviour
     {
         if (_GameStage == 1)
         {
+            //todo: increase spawn rate
+            EnemySpawner._spawnAmount += 3;
+            //EnemySpawner._spawnrate -= 2.0f;
+            
+            //todo: increase enemy damage
+            EnemyStats.EnemyDamage += 0.25f; //(maybe spawn more dangerous enemies among them and not increase the damage)
+            
             ++_GameStage;
             SceneManager.LoadScene(2);
             SpawnFactory();

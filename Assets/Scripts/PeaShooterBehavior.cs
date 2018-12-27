@@ -26,7 +26,7 @@ public class PeaShooterBehavior : MonoBehaviour
 
     private void Start()
     {
-        PlantManager.Instance.RegisterPlant2(gameObject);
+        PlantManager.Instance.RegisterPlant3(gameObject);
 
         _enemyManager = EnemyManager.Instance;
         _animator = GetComponentInChildren<Animator>();

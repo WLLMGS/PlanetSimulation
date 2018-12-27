@@ -93,9 +93,59 @@ public class StoreManager : MonoBehaviour
         }
     }
     //==================== Increase Plant 3 Cap ====================
-    //TODO: add 3rd plant upgrade once plant is implemented
+    [SerializeField] private Text _txtCap3Cost;
+    private static int _cap3Cost = 5;
 
+    public void BuyCap3Upgrade()
+    {
+        if (_gamemanager.UseSeeds(_cap3Cost))
+        {
+            PlayerStats.FriendlyPlant3Cap += _capIncrement;
+            _cap3Cost += _CostIncrement;
+            _txtCap3Cost.text = _cap3Cost.ToString();
+            _UIManager.SetMaxAmountPlant3(PlayerStats.FriendlyPlant3Cap);
+            _plantManager.UpdateCap3();
+        }
+    }
 
+    
+    private int _HealthIncreaseAmount = 3;
+
+    //==================== Increase Player Max Health ====================
+    [SerializeField] private Text _txtPlayerHealthCost;
+    private static int _playerHealthCost = 5;
+
+    public void BuyPlayerMaxHealth()
+    {
+        if (_gamemanager.UseSeeds(_playerHealthCost))
+        {
+            PlayerStats.PlayerHealth += _HealthIncreaseAmount;
+            var player = GameObject.Find("Player");
+            var health = player.GetComponent<HealthScript>();
+
+            health.MaxHealth += _HealthIncreaseAmount;
+            health.CurrentHealth = health.MaxHealth;
+
+            _playerHealthCost += _CostIncrement;
+            _txtPlayerHealthCost.text = _playerHealthCost.ToString();
+
+        }
+    }
+
+    //==================== Increase Plants Max Health ====================
+    [SerializeField] private Text _txtPlantHealthCost;
+    private static int _plantHealthCost = 5;
+
+    public void BuyPlantMaxHealth()
+    {
+        if (_gamemanager.UseSeeds(_plantHealthCost))
+        {
+            PlayerStats.PlantHealth += 10.0f;
+
+            _plantHealthCost += _CostIncrement;
+            _txtPlantHealthCost.text = _plantHealthCost.ToString();
+        }
+    }
 
     private void Start()
     {
@@ -108,6 +158,9 @@ public class StoreManager : MonoBehaviour
         _txtPlantDamageUpgradeCost.text = _PlantDamageUpgradeCost.ToString();
         _txtCap1Cost.text = _cap1Cost.ToString();
         _txtCap2Cost.text = _cap2Cost.ToString();
+        _txtCap3Cost.text = _cap3Cost.ToString();
+        _txtPlayerHealthCost.text = _playerHealthCost.ToString();
+        _txtPlantHealthCost.text = _plantHealthCost.ToString();
     }
 
 }

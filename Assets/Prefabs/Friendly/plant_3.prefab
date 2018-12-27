@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 135107390844779162}
   m_Layer: 11
   m_Name: plant_3
-  m_TagString: Plant1
+  m_TagString: Plant2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1314,7 +1314,7 @@ CapsuleCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1066676971367582}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 04fb11f619b56964983dd0724f8be052, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 1.2958386

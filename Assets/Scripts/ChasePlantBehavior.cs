@@ -8,7 +8,7 @@ using TMPro.EditorUtilities;
 public class ChasePlantBehavior : MonoBehaviour
 {
     //cost
-    private static int _cost = 0;
+    private static int _cost = 7;
 
     public static int Cost
     {
@@ -27,12 +27,14 @@ public class ChasePlantBehavior : MonoBehaviour
 
     private float _meleeRange = 2.0f;
     private bool _canAttack = true;
-    private float _attackCooldown = 0.25f;
+    private float _attackCooldown = 0.5f;
     private float _moveSpeed = 2.0f;
-    
+
+    private bool _IsCollidingWithFactory = false;
+
     private void Start()
     {
-        PlantManager.Instance.RegisterPlant3(gameObject);
+        PlantManager.Instance.RegisterPlant2(gameObject);
         _animator = GetComponentInChildren<Animator>();
         
         _enemyManager = EnemyManager.Instance;
@@ -134,8 +136,16 @@ public class ChasePlantBehavior : MonoBehaviour
 
     private bool IsInMeleeRange()
     {
-        float distance = Vector3.Distance(transform.position, _target.position);
-        return (distance <= _meleeRange);
+        if (_target != _factory)
+        {
+            float distance = Vector3.Distance(transform.position, _target.position);
+            return (distance <= _meleeRange);
+        }
+        else
+        {
+            return (_IsCollidingWithFactory);
+        }
+       
     }
 
     private bool CanAttack()
@@ -191,5 +201,20 @@ public class ChasePlantBehavior : MonoBehaviour
     {
         _canAttack = true;
     }
-    
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.collider.gameObject.tag == "Factory")
+        {
+            _IsCollidingWithFactory = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision other)
+    {
+        if (other.collider.gameObject.tag == "Factory")
+        {
+            _IsCollidingWithFactory = false;
+        }
+    }
 }

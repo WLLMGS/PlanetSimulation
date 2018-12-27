@@ -30,7 +30,7 @@ public class LootDropScript : MonoBehaviour {
                 var loot = Instantiate(_lootPrefab, pos, transform.rotation);
                 var seedComp = loot.GetComponent<SeedScript>();
                 if (seedComp == null) return;
-                seedComp.Value = Random.Range(_valueMin, _valueMax);
+                seedComp.Value = Random.Range(_valueMin, _valueMax) * GameplayManager.Instance.GameStage;
             }
           
 
