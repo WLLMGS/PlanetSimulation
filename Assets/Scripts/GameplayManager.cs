@@ -134,14 +134,14 @@ public class GameplayManager : MonoBehaviour
         Debug.Log("FACTORY DESTROYED");
         //spawn store at the location
 
-        Vector3 storePos = t.position + t.right * -5.0f;
+        Vector3 storePos = t.position + t.right * -10.0f;
 
         var store = Instantiate(_storePrefab, storePos, t.rotation);
         store.GetComponent<StoreAccessScript>()._shop = _shop;
 
         //spawn door to go to next level
 
-        Vector3 doorPos = t.position + t.right * 5.0f;
+        Vector3 doorPos = t.position + t.right * 10.0f;
         Instantiate(_Door, doorPos, t.rotation);
 
         //update objective
