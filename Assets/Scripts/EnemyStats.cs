@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class EnemyStats : MonoBehaviour
 {
-    public static float EnemyHealth = 7.0f;
-    public static float EnemyDamage = 1.0f;
-    public static float FactoryHealth = 250.0f;
-   
+    [SerializeField] public float EnemyHealth = 7.0f;
+    [SerializeField] public float EnemyDamage = 1.0f;
+    [SerializeField] public float EnemyDamageStageBonus = 0.25f;
+
+    public static float FactoryHealth = 1.0f;
+
 
     private Transform _player;
     private float _approachRange = 20.0f;
-    
+
     public Transform Player
     {
         get { return _player; }

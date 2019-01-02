@@ -1337,6 +1337,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lootPrefab: {fileID: 1876050646752900, guid: 11ef8e8fecb30fd4d90bb5065e6faa9a,
     type: 2}
+  _healthpackPrefab: {fileID: 0}
   _valueMin: 5
   _valueMax: 5
 --- !u!114 &114792061034510496

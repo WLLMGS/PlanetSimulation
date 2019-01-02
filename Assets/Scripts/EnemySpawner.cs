@@ -16,10 +16,10 @@ public struct SpawnableEnemy
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<SpawnableEnemy> _enemyPrefabs = new List<SpawnableEnemy>();
+    [SerializeField] private List<SpawnableEnemy> _enemyPrefabsStage2 = new List<SpawnableEnemy>();
     private int _maxWeightRange;
+    private int _maxWeightRangeStage2;
 
-
-    [SerializeField] private GameObject _enemyPrefab = null;
     [SerializeField] private Transform _player;
 
     private EnemyManager _enemyManager;
@@ -40,6 +40,8 @@ public class EnemySpawner : MonoBehaviour
         _gamemanager = GameplayManager.Instance;
 
         _maxWeightRange = _enemyPrefabs[_enemyPrefabs.Count - 1]._rangeMax;
+        _maxWeightRangeStage2 = _enemyPrefabsStage2[_enemyPrefabsStage2.Count - 1]._rangeMax;
+
     }
 
     private void Update()
@@ -95,15 +97,31 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject GetRandomEnemy()
     {
-        int index = Random.Range(0, _maxWeightRange);
-
-        foreach (var en in _enemyPrefabs)
+        if (_gamemanager.GameStage == 1)
         {
-            if (index >= en._rangeMin && index <= en._rangeMax)
+            int index = Random.Range(0, _maxWeightRange);
+
+            foreach (var en in _enemyPrefabs)
             {
-                return en._enemy;
+                if (index >= en._rangeMin && index <= en._rangeMax)
+                {
+                    return en._enemy;
+                }
             }
         }
+        else
+        {
+            int index = Random.Range(0, _maxWeightRangeStage2);
+
+            foreach (var en in _enemyPrefabsStage2)
+            {
+                if (index >= en._rangeMin && index <= en._rangeMax)
+                {
+                    return en._enemy;
+                }
+            }
+        }
+        
 
         return null;
     }

@@ -23,6 +23,7 @@ public class MeleeEnemyBehavior : MonoBehaviour
     private PlantManager _plantManager;
 
     private SelectorNode _rootNode;
+    private EnemyStats _stats;
 
     public Transform Target
     {
@@ -62,6 +63,7 @@ public class MeleeEnemyBehavior : MonoBehaviour
         _target = _player;
 
         _animator = GetComponentInChildren<Animator>();
+        _stats = GetComponent<EnemyStats>();
 
         _rootNode = new SelectorNode(
             //handle death
@@ -147,7 +149,7 @@ public class MeleeEnemyBehavior : MonoBehaviour
         HealthScript health = _target.gameObject.GetComponent<HealthScript>();
         if (health == null) return NodeState.Failure;
 
-        health.Damage(EnemyStats.EnemyDamage);
+        health.Damage(_stats.EnemyDamage + _stats.EnemyDamageStageBonus * GameplayManager.Instance.GameStage);
 
         //start cooldown
         _canAttack = false;

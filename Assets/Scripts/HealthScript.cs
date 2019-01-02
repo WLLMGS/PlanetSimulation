@@ -15,7 +15,7 @@ public class HealthScript : MonoBehaviour
     private List<Color> _originalColor = new List<Color>();
 
     private float _currentHeath;
-
+    private bool _DidOnDeathEvent = false;
 
     public float MaxHealth
     {
@@ -83,7 +83,7 @@ public class HealthScript : MonoBehaviour
         }
         else if (gameObject.tag == "Enemy")
         {
-            _maxHealth = EnemyStats.EnemyHealth;
+            _maxHealth = GetComponent<EnemyStats>().EnemyHealth;
             _currentHeath = _maxHealth;
         }
         else if (gameObject.tag == "Factory")
@@ -101,10 +101,13 @@ public class HealthScript : MonoBehaviour
     void CheckIfAlive()
     {
         //replace later with custom events depending on factory, enemy, player
-        if (_currentHeath <= 0)
+        if (_currentHeath <= 0
+            && !_DidOnDeathEvent)
         {
+            _DidOnDeathEvent = true;
+          
             DoOnDeathEvent();
-            //Destroy(gameObject);
+           
         }
     }
 

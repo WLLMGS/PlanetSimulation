@@ -1324,6 +1324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b8828227ffcb0469385a2f661fe8d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  EnemyHealth: 7
+  EnemyDamage: 1
 --- !u!114 &114704055024359054
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -280,10 +280,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 65864696559724806, guid: 5772e07967148a24e8eed8033447efb0,
+    - target: {fileID: 114588439049359540, guid: 5772e07967148a24e8eed8033447efb0,
         type: 2}
-      propertyPath: m_Enabled
-      value: 1
+      propertyPath: _enemyPrefabsStage2.Array.data[1]._rangeMax
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5772e07967148a24e8eed8033447efb0, type: 2}

@@ -4,7 +4,8 @@ using UnityEngine;
 using BehaviorTree;
 using UnityEngine.UI;
 
-public class EnemyBehavior : MonoBehaviour {
+public class EnemyBehavior : MonoBehaviour
+{
 
     [SerializeField] private Transform _player;
     [SerializeField] private GameObject _bulletPrefab;
@@ -25,7 +26,7 @@ public class EnemyBehavior : MonoBehaviour {
     private SelectorNode _rootNode;
     private bool _isDead = false;
     private bool _isHitByPlayer = false;
-
+    private EnemyStats _stats;
 
     private PlantManager _plantManager;
     private Transform _target;
@@ -75,7 +76,7 @@ public class EnemyBehavior : MonoBehaviour {
 
         _player = enemyStats.Player;
         _approachRange = enemyStats.ApproachRange;
-        
+        _stats = GetComponent<EnemyStats>();
         //behavior tree
         _rootNode = new SelectorNode(
             //when enemy dies
@@ -125,7 +126,7 @@ public class EnemyBehavior : MonoBehaviour {
     {
         Vector3 targetDir = _target.position - transform.position;
         Vector3 newDir = Vector3.RotateTowards(transform.forward, targetDir, 90.0f * Time.deltaTime, 0.0f);
-       
+
         transform.rotation = Quaternion.LookRotation(newDir, transform.up);
 
         return NodeState.Success;
@@ -133,18 +134,19 @@ public class EnemyBehavior : MonoBehaviour {
 
     private NodeState Shoot()
     {
-        if(_canshoot)
+        if (_canshoot)
         {
             _canshoot = false;
             StartCoroutine(GunCooldown());
-            Instantiate(_bulletPrefab, _gunpoint.position, _gunpoint.rotation);
+            var inst = Instantiate(_bulletPrefab, _gunpoint.position, _gunpoint.rotation);
+            inst.GetComponent<EnemyBulletScript>().Damage = _stats.EnemyDamage + _stats.EnemyDamageStageBonus * GameplayManager.Instance.GameStage;
         }
-            return NodeState.Success;
+        return NodeState.Success;
     }
-    
+
     private NodeState DeathAction()
     {
-       // if (_animator == null) return NodeState.Failure;
+        // if (_animator == null) return NodeState.Failure;
 
         _animator.SetTrigger("Die");
 
@@ -194,8 +196,8 @@ public class EnemyBehavior : MonoBehaviour {
 
     private bool IsInShootingRange()
     {
-       float d = Vector3.Distance(_target.position, transform.position);
-       return (d <= _distanceToShoot);
+        float d = Vector3.Distance(_target.position, transform.position);
+        return (d <= _distanceToShoot);
     }
 
     private bool IsTargetInRange()
@@ -206,7 +208,7 @@ public class EnemyBehavior : MonoBehaviour {
 
     private void DetermineTarget()
     {
-        if(_isHitByPlayer)
+        if (_isHitByPlayer)
         {
             _target = _player;
             return;
@@ -215,13 +217,13 @@ public class EnemyBehavior : MonoBehaviour {
 
         Transform closestPlant = _plantManager.GetClosestPlant(transform);
 
-        if(closestPlant == null)
+        if (closestPlant == null)
         {
             _target = _player;
             return;
         }
 
-        
+
 
         float d1 = Vector3.Distance(closestPlant.position, transform.position);
         float d2 = Vector3.Distance(_player.position, transform.position);
@@ -241,5 +243,5 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
 
-   
+
 }

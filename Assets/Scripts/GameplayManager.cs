@@ -131,6 +131,7 @@ public class GameplayManager : MonoBehaviour
 
     public void NotifyFactoryDestroyed(Transform t)
     {
+        Debug.Log("FACTORY DESTROYED");
         //spawn store at the location
 
         Vector3 storePos = t.position + t.right * -5.0f;
@@ -158,11 +159,18 @@ public class GameplayManager : MonoBehaviour
             //EnemySpawner._spawnrate -= 2.0f;
             
             //todo: increase enemy damage
-            EnemyStats.EnemyDamage += 0.25f; //(maybe spawn more dangerous enemies among them and not increase the damage)
+            //EnemyStats.EnemyDamage += 0.25f; //(maybe spawn more dangerous enemies among them and not increase the damage)
             
+
             ++_GameStage;
             SceneManager.LoadScene(2);
             SpawnFactory();
+        }
+        else if (_GameStage == 2)
+        {
+            ++_GameStage;
+            //todo: spawn boss fight factory
+            SceneManager.LoadScene(2);
         }
         
     }

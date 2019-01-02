@@ -407,6 +407,13 @@ MonoBehaviour:
   - _enemy: {fileID: 1409363152829982, guid: 37e03a2918d89cc4784414cff0c88326, type: 2}
     _rangeMin: 2
     _rangeMax: 6
+  _enemyPrefabsStage2:
+  - _enemy: {fileID: 1409363152829982, guid: 37e03a2918d89cc4784414cff0c88326, type: 2}
+    _rangeMin: 0
+    _rangeMax: 6
+  - _enemy: {fileID: 1633002951714480, guid: e460ea0e663777c44b5e4887ce926a32, type: 2}
+    _rangeMin: 7
+    _rangeMax: 10
   _enemyPrefab: {fileID: 1633002951714480, guid: e460ea0e663777c44b5e4887ce926a32,
     type: 2}
   _player: {fileID: 0}
