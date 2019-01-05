@@ -106,6 +106,7 @@ GameObject:
   - component: {fileID: 65864696559724806}
   - component: {fileID: 114400682100756426}
   - component: {fileID: 114204357171682054}
+  - component: {fileID: 65210633823682396}
   m_Layer: 10
   m_Name: Factory
   m_TagString: Factory
@@ -232,6 +233,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1323025204189286}
   m_Mesh: {fileID: 4300000, guid: 4f3566b5dd76b754cb6563d937651b97, type: 3}
+--- !u!65 &65210633823682396
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1443265565953820}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.6066943, y: 1, z: 1.5466627}
+  m_Center: {x: -0.19665287, y: 0, z: 0.2733309}
 --- !u!65 &65864696559724806
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -242,8 +255,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.445199, y: 2, z: 1.54693}
+  m_Center: {x: -0.2774008, y: 0, z: -0.22653523}
 --- !u!114 &114070030167446014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -403,10 +416,10 @@ MonoBehaviour:
   _enemyPrefabs:
   - _enemy: {fileID: 1633002951714480, guid: e460ea0e663777c44b5e4887ce926a32, type: 2}
     _rangeMin: 0
-    _rangeMax: 1
+    _rangeMax: 2
   - _enemy: {fileID: 1409363152829982, guid: 37e03a2918d89cc4784414cff0c88326, type: 2}
-    _rangeMin: 2
-    _rangeMax: 6
+    _rangeMin: 3
+    _rangeMax: 7
   _enemyPrefabsStage2:
   - _enemy: {fileID: 1726650175010848, guid: d67b1ab49a1b6b446ad1c0f9323e7d05, type: 2}
     _rangeMin: 0
@@ -414,7 +427,7 @@ MonoBehaviour:
   - _enemy: {fileID: 1905106277582702, guid: 7c8678eb7c73be144ba9bd044dfaac20, type: 2}
     _rangeMin: 7
     _rangeMax: 10
-  - _enemy: {fileID: 1061409555721148, guid: e4331bd290d10d0418a17843c1093c1f, type: 2}
+  - _enemy: {fileID: 1724302723900652, guid: 01b6aa73f00b3ae4fbe950406404e864, type: 2}
     _rangeMin: 11
     _rangeMax: 15
   _player: {fileID: 0}

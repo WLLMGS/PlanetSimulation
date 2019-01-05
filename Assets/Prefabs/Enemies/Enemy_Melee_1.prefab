@@ -1230,6 +1230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyHealth: 10
   EnemyDamage: 1
+  EnemyDamageStageBonus: 0.25
 --- !u!114 &114283123635191966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1281,7 +1282,7 @@ MonoBehaviour:
     type: 2}
   _healthpackPrefab: {fileID: 1417738873071550, guid: a4cfd293c12ab6f42ace0ea9cde9b124,
     type: 2}
-  _valueMin: 1
+  _valueMin: 3
   _valueMax: 5
 --- !u!114 &114486315574049784
 MonoBehaviour:

@@ -43,8 +43,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private bool _IsTutorialDone = false;
     [SerializeField] private GameObject _FactoryPrefab;
     [SerializeField] private Transform _FactorySpawnPoint;
-
-  
+    
 
     [SerializeField] private GameObject _storePrefab;
     [SerializeField] private GameObject _shop;
@@ -140,12 +139,17 @@ public class GameplayManager : MonoBehaviour
         store.GetComponent<StoreAccessScript>()._shop = _shop;
 
         //spawn door to go to next level
-
         Vector3 doorPos = t.position + t.right * 10.0f;
         Instantiate(_Door, doorPos, t.rotation);
 
         //update objective
         _UIManager.SetObjective("Go Through The Door To Continue");
+
+        //remove all current plants
+        PlantManager.Instance.RemoveAllPlants();
+
+        //remove all enemies
+        EnemyManager.Instance.RemoveAllEnemies();
 
         Destroy(t.gameObject);
     }
@@ -154,13 +158,7 @@ public class GameplayManager : MonoBehaviour
     {
         if (_GameStage == 1)
         {
-            //todo: increase spawn rate
             EnemySpawner._spawnAmount += 3;
-            //EnemySpawner._spawnrate -= 2.0f;
-            
-            //todo: increase enemy damage
-            //EnemyStats.EnemyDamage += 0.25f; //(maybe spawn more dangerous enemies among them and not increase the damage)
-            
 
             ++_GameStage;
             SceneManager.LoadScene(2);

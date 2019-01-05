@@ -112,7 +112,26 @@ public class PlantManager : MonoBehaviour
         list.RemoveAt(0);
     }
 
-    
+    public void RemoveAllPlants()
+    {
+        foreach (var plant in _friendlyPlants_1)
+        {
+            Destroy(plant);
+        }
+
+        foreach (var plant in _friendlyPlants_2)
+        {
+            Destroy(plant);
+        }
+
+        foreach (var plant in _friendlyPlants_3)
+        {
+            Destroy(plant);
+        }
+        //todo update UI
+
+    }
+
     public Transform GetClosestPlant(Transform other)
     {
         Transform result = null;

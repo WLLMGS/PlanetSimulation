@@ -1580,7 +1580,7 @@ MonoBehaviour:
     type: 2}
   _healthpackPrefab: {fileID: 1417738873071550, guid: a4cfd293c12ab6f42ace0ea9cde9b124,
     type: 2}
-  _valueMin: 1
+  _valueMin: 3
   _valueMax: 5
 --- !u!114 &114931329795365858
 MonoBehaviour:

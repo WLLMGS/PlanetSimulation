@@ -686,7 +686,7 @@ MonoBehaviour:
     type: 2}
   _healthpackPrefab: {fileID: 1417738873071550, guid: a4cfd293c12ab6f42ace0ea9cde9b124,
     type: 2}
-  _valueMin: 1
+  _valueMin: 3
   _valueMax: 5
 --- !u!114 &114214295898506748
 MonoBehaviour:
@@ -728,7 +728,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 7
   _healthbar: {fileID: 114725451504921718}
-  _doFlicker: 1
+  _doFlicker: 0
 --- !u!114 &114312442777344580
 MonoBehaviour:
   m_ObjectHideFlags: 1

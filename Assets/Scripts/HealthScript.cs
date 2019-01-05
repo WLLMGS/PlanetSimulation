@@ -55,12 +55,16 @@ public class HealthScript : MonoBehaviour
         //get the attached material
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
-        if (_doFlicker)
+        if (_doFlicker
+        && renderers.Length > 0)
         {
             foreach (Renderer r in renderers)
             {
                 _mats.Add(r.material);
-                _originalColor.Add(r.material.color);
+                if (r.material.color != null)
+                {
+                    _originalColor.Add(r.material.color);
+                }
             }
         }
 

@@ -6,7 +6,7 @@ public class PlayerStats : MonoBehaviour
 {
     //player
     public static float PlayerDamage = 1.0f;
-    public static float PlayerHealth = 5.0f;
+    public static float PlayerHealth = 7.0f;
 
     //plants
     public static float PlantDamage = 1.0f;

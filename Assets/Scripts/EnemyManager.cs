@@ -44,7 +44,6 @@ public class EnemyManager : MonoBehaviour
 
     public GameObject GetClosestEnemy(Transform other)
     {
-        
         GameObject closest = null;
         float shortestDistance = 1000.0f;
 
@@ -60,6 +59,15 @@ public class EnemyManager : MonoBehaviour
         
         return closest;
     }
+
+    public void RemoveAllEnemies()
+    {
+        foreach (var enemy in _enemies)
+        {
+            Destroy(enemy);
+        }
+    }
+
     public bool HasCapBeenReached()
     {
         _enemies = _enemies.Where(item => item != null).ToList();
