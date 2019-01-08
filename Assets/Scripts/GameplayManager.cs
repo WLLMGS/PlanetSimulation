@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameplayManager : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class GameplayManager : MonoBehaviour
         {
             return _instance;
         }
+        
     }
 
     private void Awake()
@@ -40,8 +42,8 @@ public class GameplayManager : MonoBehaviour
     //============== Other ==============
     private int _amountOfSeeds = 0;
     private UIScript _UIManager = null;
-    [SerializeField] private bool _IsTutorialDone = false;
-    [SerializeField] private GameObject _FactoryPrefab;
+    [FormerlySerializedAs("_IsTutorialDone")] [SerializeField] private bool _isTutorialDone = false;
+    [FormerlySerializedAs("_FactoryPrefab")] [SerializeField] private GameObject _factoryPrefab;
     [SerializeField] private Transform _FactorySpawnPoint;
     
 
@@ -67,21 +69,27 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    public void ClearSeeds()
+    {
+        _amountOfSeeds = 0;
+    }
+
     public bool IsTutorialDone
     {
         get
         {
-            return _IsTutorialDone;
+            return _isTutorialDone;
         }
         set
         {
-            _IsTutorialDone = value;
+            _isTutorialDone = value;
         }
     }
 
     public int GameStage
     {
         get { return _GameStage; }
+        set { _GameStage = 1; }
     }
 
     void Start()
@@ -89,19 +97,20 @@ public class GameplayManager : MonoBehaviour
         _UIManager = UIScript.Instance;
 
         SpawnFactory();
+        _currentFactory.SetActive(false);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
         }
     }
 
     void SpawnFactory()
     {
-        var inst = Instantiate(_FactoryPrefab, _FactorySpawnPoint.position, _FactorySpawnPoint.rotation);
+        var inst = Instantiate(_factoryPrefab, _FactorySpawnPoint.position, _FactorySpawnPoint.rotation);
         _currentFactory = inst;
         DontDestroyOnLoad(inst);
     }
@@ -125,22 +134,13 @@ public class GameplayManager : MonoBehaviour
     {
         Debug.Log("GAME OVER");
         //go to game over scene
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void NotifyFactoryDestroyed(Transform t)
     {
         Debug.Log("FACTORY DESTROYED");
-        //spawn store at the location
-
-        Vector3 storePos = t.position + t.right * -10.0f;
-
-        var store = Instantiate(_storePrefab, storePos, t.rotation);
-        store.GetComponent<StoreAccessScript>()._shop = _shop;
-
-        //spawn door to go to next level
-        Vector3 doorPos = t.position + t.right * 10.0f;
-        Instantiate(_Door, doorPos, t.rotation);
+       
 
         //update objective
         _UIManager.SetObjective("Go Through The Door To Continue");
@@ -150,6 +150,22 @@ public class GameplayManager : MonoBehaviour
 
         //remove all enemies
         EnemyManager.Instance.RemoveAllEnemies();
+
+
+        if (_GameStage < 3)
+        {
+            //spawn store at the location
+            Vector3 storePos = t.position + t.right * -10.0f;
+
+            var store = Instantiate(_storePrefab, storePos, t.rotation);
+            store.GetComponent<StoreAccessScript>()._shop = _shop;
+
+            //spawn door to go to next level
+            Vector3 doorPos = t.position + t.right * 10.0f;
+            Instantiate(_Door, doorPos, t.rotation);
+        }
+        
+
 
         Destroy(t.gameObject);
     }
@@ -161,15 +177,27 @@ public class GameplayManager : MonoBehaviour
             EnemySpawner._spawnAmount += 3;
 
             ++_GameStage;
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene(3);
             SpawnFactory();
         }
         else if (_GameStage == 2)
         {
             ++_GameStage;
-            //todo: spawn boss fight factory
-            SceneManager.LoadScene(2);
+            EnemySpawner._spawnAmount += 3;
+            SceneManager.LoadScene(3);
+            SpawnFactory();
+
         }
         
+    }
+
+    public void ActivateFactory()
+    {
+        _currentFactory.SetActive(true);
+    }
+
+    public void ResetSpawnerTimer()
+    {
+        _currentFactory.GetComponentInChildren<EnemySpawner>().Timer = 0.0f;
     }
 }

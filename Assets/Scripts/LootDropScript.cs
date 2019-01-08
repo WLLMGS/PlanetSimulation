@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
+
 using UnityEngine;
 
 public class LootDropScript : MonoBehaviour
@@ -33,7 +33,9 @@ public class LootDropScript : MonoBehaviour
                 var loot = Instantiate(_lootPrefab, pos, transform.rotation);
                 var seedComp = loot.GetComponent<SeedScript>();
                 if (seedComp == null) return;
-                seedComp.Value = Random.Range(_valueMin, _valueMax);
+
+                seedComp.Value =(tag == "Factory") ? Random.Range(_valueMin, _valueMax) * GameplayManager.Instance.GameStage
+                    : Random.Range(_valueMin, _valueMax);
             }
 
 

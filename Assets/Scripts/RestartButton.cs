@@ -1,13 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameOverScript : MonoBehaviour
-{
+
+public class RestartButton : MonoBehaviour {
+
+    private bool _IsHovering = false;
+    private Text _text;
+
+
+    private void Start()
+    {
+        _text = GetComponentInChildren<Text>();
+    }
+
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (_IsHovering
+            && Input.GetMouseButtonDown(0))
         {
             var gm = GameplayManager.Instance;
 
@@ -22,13 +34,28 @@ public class GameOverScript : MonoBehaviour
             EnemyManager.Instance.RemoveAllEnemies();
             //clear plants
             PlantManager.Instance.RemoveAllPlants();
-            //update UI
+           
 
             //reset gamestage
             gm.GameStage = 1;
 
+            //reset spawn timer
+            GameplayManager.Instance.ResetSpawnerTimer();
+
             //load new scene
             SceneManager.LoadScene(3);
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        _IsHovering = true;
+        _text.color = Color.gray;
+    }
+
+    private void OnMouseExit()
+    {
+        _IsHovering = false;
+        _text.color = Color.white;
     }
 }

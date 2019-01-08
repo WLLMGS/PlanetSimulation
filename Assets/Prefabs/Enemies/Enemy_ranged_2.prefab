@@ -1632,7 +1632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EnemyHealth: 7
-  EnemyDamage: 1
+  EnemyDamage: 1.2
   EnemyDamageStageBonus: 0.25
 --- !u!114 &114372232295295824
 MonoBehaviour:

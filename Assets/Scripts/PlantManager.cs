@@ -128,7 +128,10 @@ public class PlantManager : MonoBehaviour
         {
             Destroy(plant);
         }
-        //todo update UI
+        
+        _UIManager.SetCurrentAmountPlant1(_friendlyPlants_1.Count);
+        _UIManager.SetCurrentAmountPlant2(_friendlyPlants_2.Count);
+        _UIManager.SetCurrentAmountPlant3(_friendlyPlants_3.Count);
 
     }
 

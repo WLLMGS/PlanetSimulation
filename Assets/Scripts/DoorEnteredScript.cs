@@ -8,6 +8,7 @@ public class DoorEnteredScript : MonoBehaviour {
     {
         if(other.tag == "Player")
         {
+            UIScript.Instance.SetObjective("Destroy The Factory");
            GameplayManager.Instance.NotifyAdvanceGame();
         }
     }

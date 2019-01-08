@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro.EditorUtilities;
+
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -17,8 +17,11 @@ public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private List<SpawnableEnemy> _enemyPrefabs = new List<SpawnableEnemy>();
     [SerializeField] private List<SpawnableEnemy> _enemyPrefabsStage2 = new List<SpawnableEnemy>();
+    [SerializeField] private List<SpawnableEnemy> _enemyPrefabsStage3 = new List<SpawnableEnemy>();
+
     private int _maxWeightRange;
     private int _maxWeightRangeStage2;
+    private int _maxWeightRangeStage3;
 
     [SerializeField] private Transform _player;
 
@@ -33,6 +36,12 @@ public class EnemySpawner : MonoBehaviour
     private float _timer = 0;
     private bool _isPlayerInRange = false;
 
+    public float Timer
+    {
+        get { return _timer; }
+        set { _timer = value; }
+    }
+
     void Start()
     {
         _player = GameObject.Find("Player").transform;
@@ -41,7 +50,7 @@ public class EnemySpawner : MonoBehaviour
 
         _maxWeightRange = _enemyPrefabs[_enemyPrefabs.Count - 1]._rangeMax;
         _maxWeightRangeStage2 = _enemyPrefabsStage2[_enemyPrefabsStage2.Count - 1]._rangeMax;
-
+        _maxWeightRangeStage3 = _enemyPrefabsStage3[_enemyPrefabsStage3.Count - 1]._rangeMax;
     }
 
     private void Update()
@@ -109,11 +118,23 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
-        else
+        else if(_gamemanager.GameStage == 2)
         {
             int index = Random.Range(0, _maxWeightRangeStage2);
 
             foreach (var en in _enemyPrefabsStage2)
+            {
+                if (index >= en._rangeMin && index <= en._rangeMax)
+                {
+                    return en._enemy;
+                }
+            }
+        }
+        else
+        {
+            int index = Random.Range(0, _maxWeightRangeStage3);
+
+            foreach (var en in _enemyPrefabsStage3)
             {
                 if (index >= en._rangeMin && index <= en._rangeMax)
                 {

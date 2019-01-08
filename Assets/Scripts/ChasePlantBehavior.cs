@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BehaviorTree;
-using TMPro.EditorUtilities;
+
 
 
 public class ChasePlantBehavior : MonoBehaviour
