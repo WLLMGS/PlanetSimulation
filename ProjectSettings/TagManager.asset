@@ -12,6 +12,7 @@ TagManager:
   - TutorialEnemy
   - Plant2
   - Plant3
+  - SideFactory
   layers:
   - Default
   - TransparentFX

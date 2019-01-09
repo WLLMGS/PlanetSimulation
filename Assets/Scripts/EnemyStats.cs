@@ -8,7 +8,7 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] public float EnemyDamage = 1.0f;
     [SerializeField] public float EnemyDamageStageBonus = 0.25f;
 
-    public static float FactoryHealth = 300.0f;
+    public static float FactoryHealth = 1.0f;
 
 
     private Transform _player;

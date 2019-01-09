@@ -45,7 +45,7 @@ public class GameplayManager : MonoBehaviour
     [FormerlySerializedAs("_IsTutorialDone")] [SerializeField] private bool _isTutorialDone = false;
     [FormerlySerializedAs("_FactoryPrefab")] [SerializeField] private GameObject _factoryPrefab;
     [SerializeField] private Transform _FactorySpawnPoint;
-    
+    [SerializeField] private GameObject _bossFactory;
 
     [SerializeField] private GameObject _storePrefab;
     [SerializeField] private GameObject _shop;
@@ -97,16 +97,11 @@ public class GameplayManager : MonoBehaviour
         _UIManager = UIScript.Instance;
 
         SpawnFactory();
-        _currentFactory.SetActive(false);
+        //_currentFactory.SetActive(false);
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            SceneManager.LoadScene(3);
-        }
-    }
+    
+    
 
     void SpawnFactory()
     {
@@ -185,17 +180,24 @@ public class GameplayManager : MonoBehaviour
             ++_GameStage;
             EnemySpawner._spawnAmount += 3;
             SceneManager.LoadScene(3);
-            SpawnFactory();
+            SpawnBossFactory();
 
         }
         
+    }
+
+    private void SpawnBossFactory()
+    {
+        var inst = Instantiate(_bossFactory, _FactorySpawnPoint.position, _FactorySpawnPoint.rotation);
+        _currentFactory = inst;
+        DontDestroyOnLoad(inst);
     }
 
     public void ActivateFactory()
     {
         _currentFactory.SetActive(true);
     }
-
+    
     public void ResetSpawnerTimer()
     {
         _currentFactory.GetComponentInChildren<EnemySpawner>().Timer = 0.0f;

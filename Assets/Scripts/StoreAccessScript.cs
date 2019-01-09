@@ -43,8 +43,8 @@ public class StoreAccessScript : MonoBehaviour
             _shop.SetActive(true);
 
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape)
+        
+        if (Input.GetKeyDown(KeyCode.R)
         && _isInShop)
         {
             //access store
