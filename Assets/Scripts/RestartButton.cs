@@ -35,6 +35,9 @@ public class RestartButton : MonoBehaviour {
             //clear plants
             PlantManager.Instance.RemoveAllPlants();
            
+            //reset player health
+            var pHealth = GameObject.Find("Player").GetComponent<HealthScript>();
+            pHealth.CurrentHealth = pHealth.MaxHealth;
 
             //reset gamestage
             gm.GameStage = 1;

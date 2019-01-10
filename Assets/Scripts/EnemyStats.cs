@@ -9,8 +9,7 @@ public class EnemyStats : MonoBehaviour
     [SerializeField] public float EnemyDamageStageBonus = 0.25f;
 
     public static float FactoryHealth = 1.0f;
-
-
+    
     private Transform _player;
     private float _approachRange = 20.0f;
 

@@ -128,7 +128,11 @@ public class PlantManager : MonoBehaviour
         {
             Destroy(plant);
         }
-        
+
+        _friendlyPlants_1.Clear();
+        _friendlyPlants_2.Clear();
+        _friendlyPlants_3.Clear();
+
         _UIManager.SetCurrentAmountPlant1(_friendlyPlants_1.Count);
         _UIManager.SetCurrentAmountPlant2(_friendlyPlants_2.Count);
         _UIManager.SetCurrentAmountPlant3(_friendlyPlants_3.Count);

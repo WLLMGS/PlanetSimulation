@@ -40,6 +40,9 @@ public class PauseScript : MonoBehaviour
         //disable camera movement (time independent)
         HorizontalRotation.CanRotate = false;
 
+        //unlock cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     private void UnPause()
@@ -55,6 +58,10 @@ public class PauseScript : MonoBehaviour
 
         //enable camera movement
         HorizontalRotation.CanRotate = true;
+
+        //lock cursor
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void ResumeButton()
@@ -64,40 +71,34 @@ public class PauseScript : MonoBehaviour
 
     public void RestartButton()
     {
-        var gm = GameplayManager.Instance;
-
-        //reset factory health
-        var health = gm.CurrentFactory.GetComponent<HealthScript>();
-        if(health) health.CurrentHealth = health.MaxHealth;
-
-        //clear seeds
-        gm.ClearSeeds();
-
-        //clear enemies
+        //delete all enemies
         EnemyManager.Instance.RemoveAllEnemies();
-        //clear plants
+        //delete all plants
         PlantManager.Instance.RemoveAllPlants();
 
-        //reset player health
-        var pHealth = GameObject.Find("Player").GetComponent<HealthScript>();
-        pHealth.CurrentHealth = pHealth.MaxHealth;
+        //go to victory scene
+        Destroy(GameObject.Find("Canvas"));
 
-        //reset gamestage
-        gm.GameStage = 1;
+        //destroy the game managers
+        Destroy(GameObject.Find("Managers"));
 
-        //reset spawn timer
-        GameplayManager.Instance.ResetSpawnerTimer();
+        //destroy the planet
+        Destroy(GameObject.Find("plant_1"));
 
-        //UnPause
+        //destroy player
+        Destroy(GameObject.Find("Player"));
+
+        //destroy factory
+        Destroy(GameObject.FindGameObjectWithTag("Factory"));
+
+        //make cursor visible
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         UnPause();
 
-        //disable tutorial
-        gm.IsTutorialDone = true;
-        UIScript.Instance.SetObjective("Destroy the factory");
-        GameplayManager.Instance.ActivateFactory();
+        SceneManager.LoadScene(1);
 
-        //load new scene
-        SceneManager.LoadScene(3);
     }
 
     public void QuitButton()

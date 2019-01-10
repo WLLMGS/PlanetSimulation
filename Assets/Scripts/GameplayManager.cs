@@ -9,21 +9,21 @@ public class GameplayManager : MonoBehaviour
 
     //============== Instance ==============
     private static GameplayManager _instance = null;
-    
+
     public static GameplayManager Instance
     {
         get
         {
             return _instance;
         }
-        
+
     }
 
     private void Awake()
     {
 
         DontDestroyOnLoad(gameObject);
-        
+
         if (_instance == null) _instance = this;
 
 
@@ -50,7 +50,7 @@ public class GameplayManager : MonoBehaviour
     [SerializeField] private GameObject _storePrefab;
     [SerializeField] private GameObject _shop;
     [SerializeField] private GameObject _Door;
-    
+
     private int _GameStage = 1;
 
 
@@ -97,11 +97,11 @@ public class GameplayManager : MonoBehaviour
         _UIManager = UIScript.Instance;
 
         SpawnFactory();
-        //_currentFactory.SetActive(false);
+        _currentFactory.SetActive(false);
     }
 
-    
-    
+
+
 
     void SpawnFactory()
     {
@@ -127,15 +127,37 @@ public class GameplayManager : MonoBehaviour
 
     public void NotifyPlayerDeath()
     {
-        Debug.Log("GAME OVER");
-        //go to game over scene
+        //delete all enemies
+        EnemyManager.Instance.RemoveAllEnemies();
+        //delete all plants
+        PlantManager.Instance.RemoveAllPlants();
+
+        //go to victory scene
+        Destroy(GameObject.Find("Canvas"));
+
+        //destroy the game managers
+        Destroy(GameObject.Find("Managers"));
+
+        //destroy the planet
+        Destroy(GameObject.Find("plant_1"));
+
+        //destroy player
+        Destroy(GameObject.Find("Player"));
+
+        //destroy factory
+        Destroy(GameObject.FindGameObjectWithTag("Factory"));
+
+        //make cursor visible
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         SceneManager.LoadScene(2);
     }
 
     public void NotifyFactoryDestroyed(Transform t)
     {
         Debug.Log("FACTORY DESTROYED");
-       
+
 
         //update objective
         _UIManager.SetObjective("Go Through The Door To Continue");
@@ -147,6 +169,7 @@ public class GameplayManager : MonoBehaviour
         EnemyManager.Instance.RemoveAllEnemies();
 
 
+        //only spawn store during first two stages
         if (_GameStage < 3)
         {
             //spawn store at the location
@@ -154,12 +177,12 @@ public class GameplayManager : MonoBehaviour
 
             var store = Instantiate(_storePrefab, storePos, t.rotation);
             store.GetComponent<StoreAccessScript>()._shop = _shop;
-
-            //spawn door to go to next level
-            Vector3 doorPos = t.position + t.right * 10.0f;
-            Instantiate(_Door, doorPos, t.rotation);
         }
-        
+
+        //spawn door to go to next level
+        Vector3 doorPos = t.position + t.right * 10.0f;
+        Instantiate(_Door, doorPos, t.rotation);
+
 
 
         Destroy(t.gameObject);
@@ -183,7 +206,7 @@ public class GameplayManager : MonoBehaviour
             SpawnBossFactory();
 
         }
-        
+
     }
 
     private void SpawnBossFactory()
@@ -197,7 +220,7 @@ public class GameplayManager : MonoBehaviour
     {
         _currentFactory.SetActive(true);
     }
-    
+
     public void ResetSpawnerTimer()
     {
         _currentFactory.GetComponentInChildren<EnemySpawner>().Timer = 0.0f;

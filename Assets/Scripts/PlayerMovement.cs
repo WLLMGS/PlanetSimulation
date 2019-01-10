@@ -24,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
-       // Cursor.lockState = CursorLockMode.Locked; //lock cursor in window, unlocked by pressing escape
+        Cursor.lockState = CursorLockMode.Locked; //lock cursor in window, unlocked by pressing escape
+        Cursor.visible = false;
     }
 
     void FixedUpdate()
