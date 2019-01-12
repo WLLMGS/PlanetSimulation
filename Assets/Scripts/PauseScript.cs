@@ -13,6 +13,7 @@ public class PauseScript : MonoBehaviour
 
     private void Update()
     {
+        //press escape to pause/unpause the game
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (_isPaused)
@@ -64,6 +65,7 @@ public class PauseScript : MonoBehaviour
         Cursor.visible = false;
     }
 
+    //unpause when resume button gets pushed
     public void ResumeButton()
     {
         UnPause();
@@ -100,7 +102,7 @@ public class PauseScript : MonoBehaviour
         SceneManager.LoadScene(1);
 
     }
-
+    //quit game when button is pressed -> only works in build, not in editor
     public void QuitButton()
     {
         Application.Quit();

@@ -49,6 +49,7 @@ public class MeleePlantBehavior : MonoBehaviour
         rootNode.Tick();
     }
 
+    //check if an enemy enters the melee trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
@@ -56,6 +57,7 @@ public class MeleePlantBehavior : MonoBehaviour
             _enemiesInRange.Add(other.gameObject);
         }
     }
+    //check if an enemy exits the melee trigger
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Enemy")
@@ -65,7 +67,7 @@ public class MeleePlantBehavior : MonoBehaviour
     }
 
     //============== AI STUFF ==============
-
+    //do the attack cooldown
     private IEnumerator AttackCooldown()
     {
         yield return new WaitForSeconds(_attackRate);
@@ -123,11 +125,12 @@ public class MeleePlantBehavior : MonoBehaviour
         return NodeState.Success;
     }
 
+    //check if can attack
     private bool CanAttack()
     {
         return _canAttack;
     }
-
+    //rotate towards the target over the up axis
     private NodeState RotateTowardsTarget()
     {
         

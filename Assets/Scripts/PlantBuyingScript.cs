@@ -18,6 +18,9 @@ public class PlantBuyingScript : MonoBehaviour
 
     void Update()
     {
+        //spawn plant depending on which key is pressed
+        //and if there are enough seeds
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             //spawn plant 1

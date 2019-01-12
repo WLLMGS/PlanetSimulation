@@ -113,6 +113,8 @@ public class EnemyBehavior : MonoBehaviour
     }
 
     //============================== AI ==============================
+
+    //navigate towards current target
     private NodeState NavigateTowardsTarget()
     {
         if (_target)
@@ -122,6 +124,7 @@ public class EnemyBehavior : MonoBehaviour
         }
         return NodeState.Success;
     }
+    //rotate towards current target
     private NodeState RotateTowardsTarget()
     {
         Vector3 targetDir = _target.position - transform.position;
@@ -132,6 +135,7 @@ public class EnemyBehavior : MonoBehaviour
         return NodeState.Success;
     }
 
+    //shoot at target
     private NodeState Shoot()
     {
         if (_canshoot)
@@ -143,7 +147,7 @@ public class EnemyBehavior : MonoBehaviour
         }
         return NodeState.Success;
     }
-
+    //do death action if the enemy dies
     private NodeState DeathAction()
     {
         // if (_animator == null) return NodeState.Failure;
@@ -171,41 +175,47 @@ public class EnemyBehavior : MonoBehaviour
         return NodeState.Success;
     }
 
+    //check if enemy is dead
     private bool IsDeadCond()
     {
         return _isDead;
     }
-
+    //check if enemy is close enough to the player to stop
     private bool IsCloseEnoughToStop()
     {
         float d = Vector3.Distance(transform.position, _target.position);
         return (d <= _distanceToStop);
     }
-
+    //activate the gun cooldown
     private IEnumerator GunCooldown()
     {
         yield return new WaitForSeconds(_firerate);
         _canshoot = true;
     }
 
+    //activate the kill cooldown (destroy enemy after 1.5 seconds)
     private IEnumerator Kill()
     {
         yield return new WaitForSeconds(1.5f);
         Destroy(gameObject);
     }
 
+    //check if target is in shooting range
     private bool IsInShootingRange()
     {
         float d = Vector3.Distance(_target.position, transform.position);
         return (d <= _distanceToShoot);
     }
 
+    //check if the target is in range
     private bool IsTargetInRange()
     {
         float distance = Vector3.Distance(transform.position, _target.position);
         return (distance <= _approachRange);
     }
 
+    //determine current target 
+    //target gets set to the closest plant or the player depending on which is closer
     private void DetermineTarget()
     {
         if (_isHitByPlayer)
@@ -236,6 +246,7 @@ public class EnemyBehavior : MonoBehaviour
 
     }
 
+    //initiate the cooldown when the player hit the enemy
     private IEnumerator PlayerHitCooldown()
     {
         yield return new WaitForSeconds(_PlayerHitCooldown);

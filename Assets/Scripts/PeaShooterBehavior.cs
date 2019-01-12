@@ -39,15 +39,16 @@ public class PeaShooterBehavior : MonoBehaviour
             _factory = GameplayManager.Instance.CurrentFactory.transform;
         }
 
-
+        //behavior tree
         _rootNode = new SelectorNode(
-
+            //handle attack
             new SequenceNode(
                 new ConditionNode(HasTarget),
                 new ConditionNode(CanAttack),
                 new ActionNode(RotateTowardsTarget),
                 new ActionNode(DoAttack)
                 ),
+            //default action
             new SequenceNode(
                 new ConditionNode(CanAttack),
                 new ActionNode(RotateTowardsTarget)
@@ -63,7 +64,7 @@ public class PeaShooterBehavior : MonoBehaviour
         //walk through behaviortree
         _rootNode.Tick();
     }
-
+    //determine target -> get closest enemy entity
     private void DetermineTarget()
     {
         GameObject t = _enemyManager.GetClosestEnemy(transform);
@@ -72,6 +73,7 @@ public class PeaShooterBehavior : MonoBehaviour
         else _target = _factory;
     }
 
+    //do attack
     private NodeState DoAttack()
     {
 
@@ -87,6 +89,7 @@ public class PeaShooterBehavior : MonoBehaviour
 
         return NodeState.Success;
     }
+    //rotate towards target
     private NodeState RotateTowardsTarget()
     {
         if (_target == null) return NodeState.Failure;
@@ -98,17 +101,17 @@ public class PeaShooterBehavior : MonoBehaviour
 
         return NodeState.Success;
     }
-
+    //check if has target
     private bool HasTarget()
     {
         return (_target != null);
     }
-
+    //check if plant can attack
     private bool CanAttack()
     {
         return (_canAttack);
     }
-
+    //check if ready to attack
     private void ReadyAttack()
     {
         _canAttack = true;

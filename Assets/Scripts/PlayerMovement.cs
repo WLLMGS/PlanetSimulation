@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     
     private void Awake()
     {
+        //dont destroy player on load
         DontDestroyOnLoad(gameObject);
     }
 
@@ -30,9 +31,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        //if player can move handle the movement
         if(_CanMove) HandleMovement();
     }
-
+    //handle movement
     void HandleMovement()
     {
         float yaxis = Input.GetAxis("Vertical");
@@ -40,17 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 forward  = gameObject.transform.Find("Mesh").transform.forward;
         Vector3 right = gameObject.transform.Find("Mesh").transform.right;
-        //  forward.x -= Mathf.Cos(10 * Mathf.Deg2Rad);
-
-        //_rb.AddForce(yaxis * forward * _moveforce);
-        //_rb.AddForce(xaxis * right * _moveforce);
-
-        ////clamp velocity
-        //if(_rb.velocity.magnitude > _maxspeed)
-        //{
-        //    _rb.velocity = _rb.velocity.normalized * _maxspeed;
-        //}
-
+        
         Vector3 velocity = Vector3.zero;
         velocity += yaxis * forward * _moveforce;
         velocity += xaxis * right * _moveforce;

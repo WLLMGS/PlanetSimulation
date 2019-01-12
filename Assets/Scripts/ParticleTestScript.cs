@@ -12,11 +12,14 @@ public class ParticleTestScript : MonoBehaviour
 	
     void Start()
     {
+        //spawn lightning effect after 2s
         Invoke("SpawnLightning", 2.0f);
     }
 
+    //spawn lightning
     void SpawnLightning()
     {
+        //calculate random amount of lightning strikes
         int amount = Random.Range(1, 4);
         for (int i = 0; i < amount; ++i)
         {
@@ -24,7 +27,9 @@ public class ParticleTestScript : MonoBehaviour
             Instantiate(_particleSystem, _spawnpositions[rindex].position, _spawnpositions[rindex].rotation);
         }
 
+        //calculate new lightning spawn time
 		float randSpawntime = Random.Range(_spawnIntervalMin,_spawnIntervalMax);
-		Invoke("SpawnLightning", randSpawntime);
+        //invoke this function again after x seconds, so the lightning keeps spawning
+        Invoke("SpawnLightning", randSpawntime);
     }
 }

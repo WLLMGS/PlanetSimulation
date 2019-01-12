@@ -16,13 +16,14 @@ public class PlanetAttractorScript : MonoBehaviour
 
 	void Awake()
 	{
-        DontDestroyOnLoad(gameObject);
-		if(_instance == null) _instance = this;
+        DontDestroyOnLoad(gameObject); //dont destroy planet
+		if(_instance == null) _instance = this; //make new instance during awake
 	}
 
 
 	private float _gravity = -50f;
 
+    //attract gravity objects to planet (and rotate them)
 	public void Attract(Transform other, float rotOffset, float modifier)
 	{
 		Vector3 dir = other.position - transform.position;

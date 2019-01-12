@@ -19,14 +19,11 @@ public class PlayerShooting : MonoBehaviour
 	[SerializeField] private float _firerate = 0.35f;
 	private float _cooldown = 0;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
 	void Update () {
-        if(_CanShoot) HandleShooting();
+        //if player can shoot handle shooting
+	    if (_CanShoot) HandleShooting();
 	}
 
 	void HandleShooting()

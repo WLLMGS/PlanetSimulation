@@ -13,6 +13,8 @@ public class Scenary : MonoBehaviour {
 		dir.Normalize();
 		RaycastHit hit;
 
+        //ray cast to the planet & where the ray hits is the new position of the tree
+        //also rotate the tree correctly
 		if(Physics.Raycast(transform.position, dir, out hit, 500))
 		{
 			//if(hit.collider.tag == "Planet") Debug.Log("HIT");
@@ -25,8 +27,5 @@ public class Scenary : MonoBehaviour {
 
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+	
 }

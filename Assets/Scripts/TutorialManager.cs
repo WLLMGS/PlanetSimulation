@@ -37,9 +37,6 @@ public class TutorialManager : MonoBehaviour
         _gamemanager = GameplayManager.Instance;
 
         _txtObjective.text = "Objective: Left Click To Shoot";
-
-        //_factory = GameplayManager.Instance.CurrentFactory;
-        //if(_factory) _factory.SetActive(false);
     }
     private void Update()
     {
@@ -93,7 +90,7 @@ public class TutorialManager : MonoBehaviour
                 break;
         }
     }
-
+    //increments the current tutorial stage and sets the correct objective on the HUD
     public void IncrementTutorialStage()
     {
         ++_tutorialStage;
@@ -127,6 +124,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
+    //spawn the tutorial enemy in stage 1
     private void DoTutuorialStage1()
     {
         Vector3 spawnpos = _player.transform.position;

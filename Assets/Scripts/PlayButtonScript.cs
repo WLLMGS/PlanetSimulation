@@ -17,6 +17,7 @@ public class PlayButtonScript : MonoBehaviour {
 
     private void Update()
     {
+        //if hovering & mouse clicked go to scene 1
         if (_IsHovering
             && Input.GetMouseButtonDown(0))
         {
@@ -24,12 +25,14 @@ public class PlayButtonScript : MonoBehaviour {
         }
     }
 
+    //on mouse enter set hovering to true & make the color grey
     private void OnMouseEnter()
     {
         _IsHovering = true;
         _text.color = Color.gray;
     }
 
+    //on mouse leave set hovering to false & make the color white
     private void OnMouseExit()
     {
         _IsHovering = false;

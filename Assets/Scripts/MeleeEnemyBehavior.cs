@@ -65,6 +65,7 @@ public class MeleeEnemyBehavior : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _stats = GetComponent<EnemyStats>();
 
+        //behavior tree
         _rootNode = new SelectorNode(
             //handle death
             new SequenceNode(
@@ -88,10 +89,14 @@ public class MeleeEnemyBehavior : MonoBehaviour
 
     private void Update()
     {
+        //determine target
         DetermineTarget();
+        //go through behavior tree
         _rootNode.Tick();
     }
 
+    //determine target
+    //get closest friendly entity
     private void DetermineTarget()
     {
         if (_isHitByPlayer)
@@ -121,6 +126,7 @@ public class MeleeEnemyBehavior : MonoBehaviour
     }
 
     //============= AI ============= 
+    //move towards target
     private NodeState NavigateTowardsTarget()
     {
         if (_target)
@@ -130,6 +136,7 @@ public class MeleeEnemyBehavior : MonoBehaviour
         }
         return NodeState.Success;
     }
+    //rotate towards the target over the up axis
     private NodeState RotateTowardsTarget()
     {
         Vector3 targetDir = _target.position - transform.position;
@@ -182,6 +189,8 @@ public class MeleeEnemyBehavior : MonoBehaviour
 
         return NodeState.Success;
     }
+
+    //check if target is close enough to attack
     private bool IsCloseEnough()
     {
         if (_target == null) return false;
@@ -189,28 +198,28 @@ public class MeleeEnemyBehavior : MonoBehaviour
         float distance = Vector3.Distance(transform.position, _target.position);
         return (distance <= _stopDistance);
     }
-
+    //check if enemy can attack
     private bool CanAttack()
     {
         return _canAttack;
     }
-
+    //check if enemy is ready to attack
     private void ReadyAttack()
     {
         _canAttack = true;
     }
-
+    //check if enemy is dead
     private bool IsDeadCond()
     {
         return _isDead;
     }
-
+    //check if the target is in range
     private bool IsTargetInRange()
     {
         float distance = Vector3.Distance(transform.position, _target.position);
         return (distance <= _approachRange);
     }
-
+    //destroy enemy after 1.5s
     private IEnumerator Kill()
     {
         yield return new WaitForSeconds(1.5f);

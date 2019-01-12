@@ -50,19 +50,22 @@ public class HealthScript : MonoBehaviour
 
         Init();
 
-        UpdateUI();
+        UpdateUI(); //update UI
 
         //get the attached material
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
+        //if flicker on damage is turned on and there is at least one renderer
         if (_doFlicker
         && renderers.Length > 0)
         {
             foreach (Renderer r in renderers)
             {
+                //add material to list
                 _mats.Add(r.material);
                 if (r.material.color != null)
                 {
+                    //add original color to list
                     _originalColor.Add(r.material.color);
                 }
             }
@@ -73,6 +76,7 @@ public class HealthScript : MonoBehaviour
 
     private void Init()
     {
+        //depending on the tag set the current health and max health
         if (gameObject.tag == "Player")
         {
             _maxHealth = PlayerStats.PlayerHealth;
@@ -97,17 +101,20 @@ public class HealthScript : MonoBehaviour
         }
     }
 
+    //update current health bar
     void UpdateUI()
     {
         if (_healthbar) _healthbar.value = _currentHeath / _maxHealth;
     }
 
+    //check if obj still alive
     void CheckIfAlive()
     {
         //replace later with custom events depending on factory, enemy, player
         if (_currentHeath <= 0
             && !_DidOnDeathEvent)
         {
+            //if obj is dead do a event on death
             _DidOnDeathEvent = true;
           
             DoOnDeathEvent();
@@ -115,6 +122,7 @@ public class HealthScript : MonoBehaviour
         }
     }
 
+    //depending on the tag do something when obj dies
     void DoOnDeathEvent()
     {
         switch (gameObject.tag)
@@ -182,10 +190,9 @@ public class HealthScript : MonoBehaviour
         }
     }
 
-
+    //flicker material when obj gets damaged
     void DamageFlickerAnimation()
     {
-
         foreach (Material m in _mats)
         {
             m.color *= new Color(1, 0, 0, 1);
@@ -193,6 +200,7 @@ public class HealthScript : MonoBehaviour
 
         StartCoroutine(ChangeBackToNormalColor());
     }
+    //change back to original color after 0.1s
     IEnumerator ChangeBackToNormalColor()
     {
         yield return new WaitForSeconds(0.1f);
@@ -202,20 +210,43 @@ public class HealthScript : MonoBehaviour
             _mats[i].color = _originalColor[i];
         }
     }
-
+    //destroy current game object after 1s
     IEnumerator DestroyObj()
     {
         yield return new WaitForSeconds(1.0f);
         TutorialManager.Instance.IncrementTutorialStage();
         Destroy(gameObject);
     }
-
+    //damage obj
     public void Damage(float amount)
     {
+        //redeuce current health with amount
         _currentHeath -= amount;
+        //clamp health between zero and max health
         Mathf.Clamp(_currentHeath, 0, _maxHealth);
+        //check if still alive
         CheckIfAlive();
+        //update health bar ui
         UpdateUI();
+        //do flicker animation 
         if (_doFlicker) DamageFlickerAnimation();
+
+        if (tag == "Player"
+            || tag == "Enemy"
+            || tag == "Factory"
+            || tag == "TutorialEnemy")
+        {
+            //play damage sound
+            AudioSource source = GetComponent<AudioSource>();
+            if (!source.isPlaying)
+            {
+                source.Play();
+            }
+            else
+            {
+                source.Stop();
+                source.Play();
+            }
+        }
     }
 }

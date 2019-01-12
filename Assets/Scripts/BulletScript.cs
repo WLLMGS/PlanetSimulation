@@ -6,10 +6,11 @@ public class BulletScript : MonoBehaviour
 {
     [SerializeField] private float _speed = 50.0f;
     private GameplayManager _gamemanager;
+
     void Start()
     {
         _gamemanager = GameplayManager.Instance;
-        Invoke("Kill", 0.5f);
+        Invoke("Kill", 0.5f); //destroy bullet after half a second
     }
 
     void Kill()
@@ -19,6 +20,7 @@ public class BulletScript : MonoBehaviour
 
     void Update()
     {
+        //move the bullet forward
         transform.position += transform.right * _speed * Time.deltaTime;
     }
 
@@ -47,6 +49,7 @@ public class BulletScript : MonoBehaviour
         }
         else if (other.tag == "Factory")
         {
+            //only hurt factory with bullets if the tutorial is done
             if (_gamemanager.IsTutorialDone)
             {
                 HealthScript health = other.GetComponent<HealthScript>();

@@ -9,9 +9,10 @@ public class PlantBulletScript : MonoBehaviour {
     void Start()
     {
         _gamemanager = GameplayManager.Instance;
-        Invoke("Kill", 0.5f);
+        Invoke("Kill", 0.5f); //destroy bullet after .5s
     }
 
+    //destroy obj
     void Kill()
     {
         Destroy(gameObject);
@@ -19,6 +20,7 @@ public class PlantBulletScript : MonoBehaviour {
 
     void Update()
     {
+        //go forward
         transform.position += transform.right * _speed * Time.deltaTime;
     }
 
@@ -49,6 +51,7 @@ public class PlantBulletScript : MonoBehaviour {
         {
             if (_gamemanager.IsTutorialDone)
             {
+                //do damage if health script can be found
                 HealthScript health = other.GetComponent<HealthScript>();
                 if (health == null) return;
 

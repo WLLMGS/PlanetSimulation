@@ -24,11 +24,13 @@ public class GravityBody : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        //get the current planet attractor
 		_attractor = PlanetAttractorScript.Instance;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+        //calculate gravity
 		_attractor.Attract(transform, _rotOffset, _gravityModifier);
 	}
 }

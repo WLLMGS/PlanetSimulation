@@ -21,12 +21,9 @@ public class GameplayManager : MonoBehaviour
 
     private void Awake()
     {
-
         DontDestroyOnLoad(gameObject);
 
         if (_instance == null) _instance = this;
-
-
     }
 
     //============== Camera ==============
@@ -94,26 +91,27 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-        _UIManager = UIScript.Instance;
+        _UIManager = UIScript.Instance; //get UI manager
 
-        SpawnFactory();
-        _currentFactory.SetActive(false);
+        SpawnFactory(); //spawn factory
+        _currentFactory.SetActive(false); //currently disable it until the tutorial is done
     }
 
 
 
-
+    //spawn factory
     void SpawnFactory()
     {
         var inst = Instantiate(_factoryPrefab, _FactorySpawnPoint.position, _FactorySpawnPoint.rotation);
         _currentFactory = inst;
         DontDestroyOnLoad(inst);
     }
-
+    //add seeds to current amount
     public void AddSeeds(int amount)
     {
         if (amount > 0) _amountOfSeeds += amount;
     }
+    //use seeds if the amount is available return bool is succeeded or not
     public bool UseSeeds(int amount)
     {
         if (_amountOfSeeds >= amount)
@@ -124,7 +122,7 @@ public class GameplayManager : MonoBehaviour
         }
         return false;
     }
-
+    //when the player dies
     public void NotifyPlayerDeath()
     {
         //delete all enemies
@@ -151,9 +149,10 @@ public class GameplayManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
 
+        //load game over scene
         SceneManager.LoadScene(2);
     }
-
+    //notify when a factory is destroyed
     public void NotifyFactoryDestroyed(Transform t)
     {
         Debug.Log("FACTORY DESTROYED");
@@ -182,12 +181,11 @@ public class GameplayManager : MonoBehaviour
         //spawn door to go to next level
         Vector3 doorPos = t.position + t.right * 10.0f;
         Instantiate(_Door, doorPos, t.rotation);
-
-
-
+        
         Destroy(t.gameObject);
     }
 
+    //notify the gameplay manager to advance the game
     public void NotifyAdvanceGame()
     {
         if (_GameStage == 1)
@@ -209,18 +207,20 @@ public class GameplayManager : MonoBehaviour
 
     }
 
+    //spawn boss factory
     private void SpawnBossFactory()
     {
         var inst = Instantiate(_bossFactory, _FactorySpawnPoint.position, _FactorySpawnPoint.rotation);
         _currentFactory = inst;
         DontDestroyOnLoad(inst);
     }
-
+    //activate current factory (for when tutorial is complete)
     public void ActivateFactory()
     {
         _currentFactory.SetActive(true);
     }
 
+    //reset the spawn timer for the factory
     public void ResetSpawnerTimer()
     {
         _currentFactory.GetComponentInChildren<EnemySpawner>().Timer = 0.0f;

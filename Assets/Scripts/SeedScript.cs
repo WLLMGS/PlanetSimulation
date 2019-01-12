@@ -20,15 +20,30 @@ public class SeedScript : MonoBehaviour {
 
     private void Update()
     {
+        //rotate the obj 360 degrees per second
         transform.Rotate(new Vector3(0, 360.0f * Time.deltaTime, 0));
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if(other.tag == "Player")
         {
-            //TODO: add value to total seed counter
+            //when the player enters the trigger add the seeds to the total amount in the gameplay manager
             GameplayManager.Instance.AddSeeds(_value);
+
+            //play the pickup sound clip
+            var source = other.GetComponents<AudioSource>()[1];
+            if (!source.isPlaying)
+            {
+                source.Play();
+            }
+            else
+            {
+                source.Stop();
+                source.Play();
+            }
+            //destroy seed object
             Destroy(gameObject);
         }
     }

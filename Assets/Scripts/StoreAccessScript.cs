@@ -12,20 +12,26 @@ public class StoreAccessScript : MonoBehaviour
     private bool _IsHovering = false;
     private bool _isInShop = false;
 
-    private void Awake()
-    {
-        //DontDestroyOnLoad(gameObject);
-    }
-
     private void Start()
     {
         _UI = UIScript.Instance;
     }
 
     private void Update()
+    {   
+       HandleStoreHandling();
+    }
+
+    private void HandleStoreHandling()
     {
+        //when E is pressed and player is in range of the store
+        //the cursor becomes visible & is no longer locked
+        //the player movement, rotation & shooting is disabled
+        //bool in shop is set to true
+        //the tooltip is enabled
+        //and the shop gameobject is set to active
         if (Input.GetKeyDown(KeyCode.E)
-        && _IsHovering)
+            && _IsHovering)
         {
             //access store
             Cursor.visible = true;
@@ -38,14 +44,20 @@ public class StoreAccessScript : MonoBehaviour
 
             _isInShop = true;
 
-            _UI.EnableTooltip("<Press E To Access Store");
+            _UI.DisableTooltip();
 
             _shop.SetActive(true);
 
         }
-        
+
+        //when R is pressed and the player is currently in the shop
+        //set the cursor visiblity to false and lock the cursor
+        //enable the player movement, rotation & shooting
+        //set bool isInShop to false
+        //re-enable the tooltip again
+        //set the shop gameobject to false
         if (Input.GetKeyDown(KeyCode.R)
-        && _isInShop)
+            && _isInShop)
         {
             //access store
             Cursor.visible = false;
@@ -66,6 +78,8 @@ public class StoreAccessScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        //when the player enters the trigger volume set the tooltip to be enabled
+        //and set hovering to true
         if (other.tag == "Player")
         {
             //show tooltip
@@ -76,6 +90,8 @@ public class StoreAccessScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        //when the player leaves the trigger volume disable the tooltip
+        //and set the hovering bool to false
         if (other.tag == "Player")
         {
             //hide tooltip

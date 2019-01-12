@@ -55,7 +55,7 @@ public class SideSpawner : MonoBehaviour
             Invoke("Cooldown", _spawnCooldown);
         }
     }
-
+    //reset the cooldown
     private void Cooldown()
     {
         _canSpawnEnemies = true;
@@ -72,6 +72,7 @@ public class SideSpawner : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        //stop spawnign when none of these entities are in range of the spawner
         if (other.tag == "Player" || other.tag == "Plant1" || other.tag == "Plant2" || other.tag == "Plant3")
         {
             _playerInRange = false;

@@ -15,6 +15,9 @@ public class LootDropScript : MonoBehaviour
 
     public void DropLoot()
     {
+        //if loot is not already dropped
+        //drop the loot with a random value
+        //or small chance to drop health pack instead
         if (!_isLootDropped)
         {
             int index = Random.Range(0, 10);

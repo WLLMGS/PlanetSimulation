@@ -13,6 +13,8 @@ public class UISeedDeductionScript : MonoBehaviour {
         _text = GetComponent<Text>();
     }
 
+    //activates the deduction game object
+    //and invokes the deactivate function in _cooldown amount of seconds
     public void Activate(int amount)
     {
         _text.text = "- " + amount.ToString();

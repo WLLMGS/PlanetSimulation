@@ -5,12 +5,12 @@ using System.Linq;
 
 public class EnemyManager : MonoBehaviour
 {
-
     private static EnemyManager _instance = null;
     private static int ENEMY_CAP = 10;
 
     private List<GameObject> _enemies = new List<GameObject>();
 
+    //SINGLETON
     public static EnemyManager Instance
     {
         get
@@ -26,12 +26,12 @@ public class EnemyManager : MonoBehaviour
             return _enemies.Count;
         }
     }
-
+    //create instance in awake
     private void Awake()
     {
         if (_instance == null) _instance = this;
     }
-
+    //register enemy
     public void RegisterEnemy(GameObject enemy)
     {
         if (!_enemies.Contains(enemy)) _enemies.Add(enemy);
@@ -39,9 +39,11 @@ public class EnemyManager : MonoBehaviour
 
     private void Update()
     {
+        //remove enemies that are dead
         _enemies = _enemies.Where(item => item != null).ToList();
     }
 
+    //calculate closest enemy to a certain position
     public GameObject GetClosestEnemy(Transform other)
     {
         GameObject closest = null;
@@ -56,10 +58,10 @@ public class EnemyManager : MonoBehaviour
                 closest = en;
             }
         }
-        
+
         return closest;
     }
-
+    //remove all enemies
     public void RemoveAllEnemies()
     {
         foreach (var enemy in _enemies)
@@ -68,6 +70,7 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
+    //check if the enemy cap has been reached
     public bool HasCapBeenReached()
     {
         _enemies = _enemies.Where(item => item != null).ToList();

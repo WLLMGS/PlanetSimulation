@@ -46,11 +46,13 @@ public class PlantManager : MonoBehaviour
 
     private void Update()
     {
+        //remove objs in list where item is null
         _friendlyPlants_1 = _friendlyPlants_1.Where(item => item != null).ToList();
         _friendlyPlants_2 = _friendlyPlants_2.Where(item => item != null).ToList();
         _friendlyPlants_3 = _friendlyPlants_3.Where(item => item != null).ToList();
     }
 
+    //register first plant and update UI
     public void RegisterPlant1(GameObject plant)
     {
         if (_friendlyPlants_1.Count >= _friendPlant1Cap)
@@ -63,7 +65,7 @@ public class PlantManager : MonoBehaviour
         _UIManager.SetCurrentAmountPlant1(_friendlyPlants_1.Count);
 
     }
-
+    //register second plant and update UI
     public void RegisterPlant2(GameObject plant)
     {
         if (_friendlyPlants_2.Count >= _friendPlant2Cap)
@@ -75,7 +77,7 @@ public class PlantManager : MonoBehaviour
 
         _UIManager.SetCurrentAmountPlant2(_friendlyPlants_2.Count);
     }
-
+    //register third plant and update UI
     public void RegisterPlant3(GameObject plant)
     {
         if (_friendlyPlants_3.Count >= _friendPlant3Cap)
@@ -86,32 +88,32 @@ public class PlantManager : MonoBehaviour
 
         _UIManager.SetCurrentAmountPlant3(_friendlyPlants_3.Count);
     }
-
+    //unregister first plant and update UI
     public void UnregisterPlant1(GameObject plant)
     {
         _friendlyPlants_1.Remove(plant);
         _UIManager.SetCurrentAmountPlant1(_friendlyPlants_1.Count);
     }
-
+    //unregister second plant and update UI
     public void UnregisterPlant2(GameObject plant)
     {
         _friendlyPlants_2.Remove(plant);
         _UIManager.SetCurrentAmountPlant2(_friendlyPlants_2.Count);
     }
-
+    //unregister third plant and update UI
     public void UnregisterPlant3(GameObject plant)
     {
         _friendlyPlants_3.Remove(plant);
         _UIManager.SetCurrentAmountPlant3(_friendlyPlants_3.Count);
     }
 
-
+    //remove the oldest object in the list
     private void RemoveOldestAndShift(List<GameObject> list)
     {
         Destroy(list[0]);
         list.RemoveAt(0);
     }
-
+    //remove all plants and update the UI
     public void RemoveAllPlants()
     {
         foreach (var plant in _friendlyPlants_1)
@@ -138,7 +140,7 @@ public class PlantManager : MonoBehaviour
         _UIManager.SetCurrentAmountPlant3(_friendlyPlants_3.Count);
 
     }
-
+    //get the closest plant based on 
     public Transform GetClosestPlant(Transform other)
     {
         Transform result = null;
@@ -180,15 +182,17 @@ public class PlantManager : MonoBehaviour
 
         return result;
     }
-
+    //update the max cap for plant 1
     public void UpdateCap1()
     {
         _friendPlant1Cap = PlayerStats.FriendlyPlant1Cap;
     }
+    //update the max cap for plant 2
     public void UpdateCap2()
     {
         _friendPlant2Cap = PlayerStats.FriendlyPlant2Cap;
     }
+    //update the max cap for plant 3
     public void UpdateCap3()
     {
         _friendPlant3Cap = PlayerStats.FriendlyPlant3Cap;

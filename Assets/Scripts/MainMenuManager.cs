@@ -11,6 +11,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Update()
     {
+        //if mouse is hovering over the button & the mouse is clicked go to first scene
         if (_IsHovering
         && Input.GetMouseButtonDown(0))
         {
@@ -18,11 +19,12 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    //on mouse enter set hover to true
     private void OnMouseEnter()
     {
         _IsHovering = true;
     }
-
+    //on mouse exit set hover to false
     private void OnMouseExit()
     {
         _IsHovering = false;

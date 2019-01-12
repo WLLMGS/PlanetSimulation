@@ -34,18 +34,21 @@ public class ChasePlantBehavior : MonoBehaviour
 
     private void Start()
     {
+        //register the plant
         PlantManager.Instance.RegisterPlant2(gameObject);
+        //get animator
         _animator = GetComponentInChildren<Animator>();
-        
+        //get enemy manager
         _enemyManager = EnemyManager.Instance;
-
+        //if there is a factory currently get the transform
         if (GameplayManager.Instance.CurrentFactory != null)
         {
             _factory = GameplayManager.Instance.CurrentFactory.transform;
          }
+        //set the current target to factory 
         _target = _factory;
 
-
+        //behavior tree
         _rootNode = new SelectorNode(
             //attack node
             new SelectorNode(
@@ -134,6 +137,7 @@ public class ChasePlantBehavior : MonoBehaviour
         return (_target != null);
     }
 
+    //check if the target is in melee range
     private bool IsInMeleeRange()
     {
         if (_target != _factory)
@@ -147,12 +151,13 @@ public class ChasePlantBehavior : MonoBehaviour
         }
        
     }
-
+    //check if plant can attack
     private bool CanAttack()
     {   
         return _canAttack;
     }
 
+    //rotate towards current target
     private NodeState RotateTowardsTarget()
     {
 
@@ -165,9 +170,10 @@ public class ChasePlantBehavior : MonoBehaviour
         return NodeState.Success;
     }
 
+    //do attack
     private NodeState Attack()
     {
-        //request helathscript
+        //request health script
         //if script does not exist -> return failure
         //do plant damage to target
         var health = _target.gameObject.GetComponent<HealthScript>();
@@ -183,6 +189,7 @@ public class ChasePlantBehavior : MonoBehaviour
 
         return NodeState.Success;
     }
+    //move towards the current target
     private NodeState NavigateTowardsTarget()
     {
         if (_target)
@@ -192,16 +199,20 @@ public class ChasePlantBehavior : MonoBehaviour
         }
         return NodeState.Success;
     }
+
     private NodeState DoNothing()
     {
         return NodeState.Success;
     }
 
+    //check if plant is ready to attack
     private void ReadyAttack()
     {
         _canAttack = true;
     }
 
+    //check if colliding with factory
+    //if true set bool to true
     private void OnCollisionEnter(Collision other)
     {
         if (other.collider.gameObject.tag == "Factory")
@@ -210,6 +221,8 @@ public class ChasePlantBehavior : MonoBehaviour
         }
     }
 
+    //check if collision exit with factory
+    //if true set bool to false
     private void OnCollisionExit(Collision other)
     {
         if (other.collider.gameObject.tag == "Factory")

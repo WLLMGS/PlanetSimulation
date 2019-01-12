@@ -8,9 +8,9 @@ using Random = UnityEngine.Random;
 [Serializable]
 public struct SpawnableEnemy
 {
-    public GameObject _enemy;
-    public int _rangeMin;
-    public int _rangeMax;
+    public GameObject _enemy; //enemy prefab
+    public int _rangeMin; //min weight
+    public int _rangeMax; //max weight
 }
 
 public class EnemySpawner : MonoBehaviour
@@ -48,6 +48,7 @@ public class EnemySpawner : MonoBehaviour
         _enemyManager = EnemyManager.Instance;
         _gamemanager = GameplayManager.Instance;
 
+        //get max spawn weight for each game stage
         _maxWeightRange = _enemyPrefabs[_enemyPrefabs.Count - 1]._rangeMax;
         _maxWeightRangeStage2 = _enemyPrefabsStage2[_enemyPrefabsStage2.Count - 1]._rangeMax;
         _maxWeightRangeStage3 = _enemyPrefabsStage3[_enemyPrefabsStage3.Count - 1]._rangeMax;
@@ -55,19 +56,23 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
+        //only handle spawning when the tutorial is done
         if(_gamemanager.IsTutorialDone) HandleSpawning();
     }
 
     private void HandleSpawning()
     {
+        //do cooldown
         _timer -= Time.deltaTime;
+
+        //when cooldown is done & player is in range spawn the wave
 
         if (_timer <= 0.0f)
         {
             if (_isPlayerInRange
                 && !_enemyManager.HasCapBeenReached())
             {
-                _timer = _spawnrate;
+                _timer = _spawnrate; //reset timer
                 SpawnWave();
             }
         }
@@ -103,7 +108,7 @@ public class EnemySpawner : MonoBehaviour
         en.GetComponent<EnemyStats>().Player = _player;
 
     }
-
+    //get random enemy to spawn based on the gamestage and the weight
     private GameObject GetRandomEnemy()
     {
         if (_gamemanager.GameStage == 1)

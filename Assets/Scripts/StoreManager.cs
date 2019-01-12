@@ -12,7 +12,9 @@ public class StoreManager : MonoBehaviour
     private PlantManager _plantManager;
 
     private static StoreManager _instance = null;
-    
+
+    private AudioSource _sound;
+
     public static StoreManager Instance
     {
         get { return _instance; }
@@ -40,6 +42,7 @@ public class StoreManager : MonoBehaviour
 
             _PlayerDamageUpgradeCost += _CostIncrement;
             _txtPlayerDamageUpgradeCost.text = _PlayerDamageUpgradeCost.ToString();
+            PlaySound();
         }
     }
 
@@ -56,6 +59,7 @@ public class StoreManager : MonoBehaviour
             PlayerStats.PlantDamage += _PlantDamageIncrement;
             _PlantDamageUpgradeCost += _CostIncrement;
             _txtPlantDamageUpgradeCost.text = _PlantDamageUpgradeCost.ToString();
+            PlaySound();
         }
     }
 
@@ -73,13 +77,14 @@ public class StoreManager : MonoBehaviour
             _txtCap1Cost.text = _cap1Cost.ToString();
             _UIManager.SetMaxAmountPlant1(PlayerStats.FriendlyPlant1Cap);
             _plantManager.UpdateCap1();
+            PlaySound();
         }
     }
 
     //==================== Increase Plant 2 Cap ====================
     [SerializeField] private Text _txtCap2Cost;
     private static int _cap2Cost = 5;
-   
+
 
     public void BuyCap2Upgrade()
     {
@@ -90,6 +95,7 @@ public class StoreManager : MonoBehaviour
             _txtCap2Cost.text = _cap2Cost.ToString();
             _UIManager.SetMaxAmountPlant2(PlayerStats.FriendlyPlant2Cap);
             _plantManager.UpdateCap2();
+            PlaySound();
         }
     }
     //==================== Increase Plant 3 Cap ====================
@@ -105,10 +111,11 @@ public class StoreManager : MonoBehaviour
             _txtCap3Cost.text = _cap3Cost.ToString();
             _UIManager.SetMaxAmountPlant3(PlayerStats.FriendlyPlant3Cap);
             _plantManager.UpdateCap3();
+            PlaySound();
         }
     }
 
-    
+
     private int _HealthIncreaseAmount = 3;
 
     //==================== Increase Player Max Health ====================
@@ -128,7 +135,7 @@ public class StoreManager : MonoBehaviour
 
             _playerHealthCost += _CostIncrement;
             _txtPlayerHealthCost.text = _playerHealthCost.ToString();
-
+            PlaySound();
         }
     }
 
@@ -144,16 +151,33 @@ public class StoreManager : MonoBehaviour
 
             _plantHealthCost += _CostIncrement;
             _txtPlantHealthCost.text = _plantHealthCost.ToString();
+            PlaySound();
         }
     }
+
+    //play buying sound effect
+    void PlaySound()
+    {
+        if (!_sound.isPlaying)
+        {
+            _sound.Play();
+        }
+        else
+        {
+            _sound.Stop();
+            _sound.Play();
+        }
+    }
+
 
     private void Start()
     {
         _gamemanager = GameplayManager.Instance;
         _UIManager = UIScript.Instance;
         _plantManager = PlantManager.Instance;
+        _sound = GetComponent<AudioSource>();
 
-
+        //set all labels of the cost to the current cost
         _txtPlayerDamageUpgradeCost.text = _PlayerDamageUpgradeCost.ToString();
         _txtPlantDamageUpgradeCost.text = _PlantDamageUpgradeCost.ToString();
         _txtCap1Cost.text = _cap1Cost.ToString();

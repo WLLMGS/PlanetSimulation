@@ -15,9 +15,11 @@ public class EnemyBulletScript : MonoBehaviour {
 
     void Start()
     {
+        //destroy bullets after half a second
         Invoke("Kill", 2.0f);
     }
 
+    //destroys bullet
     void Kill()
     {
         Destroy(gameObject);
@@ -25,11 +27,14 @@ public class EnemyBulletScript : MonoBehaviour {
 
     void Update()
     {
+        //move bullet forward
         transform.position += transform.right * _speed * Time.deltaTime;
     }
 
     void OnTriggerEnter(Collider other)
     {
+        //check if bullet collides w friendly entity
+        //do damage to the entity
         if(other.tag == "Player" || other.tag == "Plant1" || other.tag == "Plant2" || other.tag == "Plant3")
         {
             HealthScript health = other.GetComponent<HealthScript>();
@@ -40,6 +45,7 @@ public class EnemyBulletScript : MonoBehaviour {
             health.Damage(_damage);
             Destroy(gameObject);
         }
+        //if the bullet collides w/ the factory just destroy it
         else if(other.tag == "Factory")
         {
             Destroy(gameObject);

@@ -50,12 +50,13 @@ public class RestartButton : MonoBehaviour {
         }
     }
 
+    //on mouse enter set hovering to true & color to gray
     private void OnMouseEnter()
     {
         _IsHovering = true;
         _text.color = Color.gray;
     }
-
+    //on mouse exit set hovering to false & color to white
     private void OnMouseExit()
     {
         _IsHovering = false;
