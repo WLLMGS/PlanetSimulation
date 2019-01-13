@@ -238,6 +238,11 @@ public class HealthScript : MonoBehaviour
         {
             //play damage sound
             AudioSource source = GetComponent<AudioSource>();
+
+            float pitch = Random.Range(0.75f, 1.5f);
+
+            source.pitch = pitch;
+
             if (!source.isPlaying)
             {
                 source.Play();
