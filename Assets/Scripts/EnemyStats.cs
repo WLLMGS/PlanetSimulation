@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyStats : MonoBehaviour
 {
     //static factory health
-    public static float FactoryHealth = 1.0f;
+    public static float FactoryHealth = 300.0f;
     //basic stats
     [SerializeField] public float EnemyHealth = 7.0f;
     [SerializeField] public float EnemyDamage = 1.0f;
